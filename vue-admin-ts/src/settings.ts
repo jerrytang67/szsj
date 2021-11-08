@@ -12,7 +12,7 @@ interface ISettings {
 
 // You can customize below settings :)
 const settings: ISettings = {
-    title: '吴江总工会活动平台',
+    title: '活动平台',
     showSettings: true,
     showTagsView: true,
     fixedHeader: false,

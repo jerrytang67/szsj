@@ -60,17 +60,6 @@ export default class SendMessage extends Vue {
     this.dataForm.validate(async (valid: boolean) => {
       if (valid) {
 
-        //api
-        api.luckDrawPrize.sendMessage({
-          body: {
-            prizeId: this.dto.id,
-            ...this.form
-          }
-        }).then(res => {
-          this.show = false;
-
-        })
-
       }
     });
   }

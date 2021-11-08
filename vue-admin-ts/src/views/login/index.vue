@@ -1,10 +1,15 @@
 <template>
    <div class="login-container">
-      <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" autocomplete="on" label-position="left">
+      <el-form
+         ref="loginForm"
+         :model="loginForm"
+         :rules="loginRules"
+         class="login-form"
+         autocomplete="on"
+         label-position="left"
+      >
          <div class="title-container">
-            <h3 class="title">
-               吴江总工会活动平台
-            </h3>
+            <h3 class="title">活动平台</h3>
             <lang-select class="set-language" />
          </div>
          <div class="title-container">
@@ -23,7 +28,15 @@
             <span class="svg-container">
                <svg-icon name="user" />
             </span>
-            <el-input ref="username" v-model="loginForm.username" :placeholder="$t('login.username')" name="username" type="text" tabindex="1" autocomplete="on" />
+            <el-input
+               ref="username"
+               v-model="loginForm.username"
+               :placeholder="$t('login.username')"
+               name="username"
+               type="text"
+               tabindex="1"
+               autocomplete="on"
+            />
          </el-form-item>
 
          <el-tooltip v-model="capsTooltip" content="Caps lock is On" placement="right" manual>
@@ -31,16 +44,31 @@
                <span class="svg-container">
                   <svg-icon name="password" />
                </span>
-               <el-input :key="passwordType" ref="password" v-model="loginForm.password" :type="passwordType" :placeholder="$t('login.password')" name="password" tabindex="2" autocomplete="on" @keyup.native="checkCapslock" @blur="capsTooltip = false" @keyup.enter.native="handleLogin" />
+               <el-input
+                  :key="passwordType"
+                  ref="password"
+                  v-model="loginForm.password"
+                  :type="passwordType"
+                  :placeholder="$t('login.password')"
+                  name="password"
+                  tabindex="2"
+                  autocomplete="on"
+                  @keyup.native="checkCapslock"
+                  @blur="capsTooltip = false"
+                  @keyup.enter.native="handleLogin"
+               />
                <span class="show-pwd" @click="showPwd">
                   <svg-icon :name="passwordType === 'password' ? 'eye-off' : 'eye-on'" />
                </span>
             </el-form-item>
          </el-tooltip>
 
-         <el-button :loading="loading" type="primary" style="width:100%; margin-bottom:30px;" @click.native.prevent="handleLogin">
-            {{ $t('login.logIn') }}
-         </el-button>
+         <el-button
+            :loading="loading"
+            type="primary"
+            style="width:100%; margin-bottom:30px;"
+            @click.native.prevent="handleLogin"
+         >{{ $t('login.logIn') }}</el-button>
          <!-- 
          <div style="position:relative">
             <div class="tips">
@@ -48,14 +76,14 @@
             <el-button class="thirdparty-button" type="primary" @click="showDialog=true">
                {{ $t('login.thirdparty') }}
             </el-button>
-         </div> -->
+         </div>-->
       </el-form>
 
       <el-dialog :title="$t('login.thirdparty')" :visible.sync="showDialog">
          {{ $t('login.thirdpartyTips') }}
-         <br>
-         <br>
-         <br>
+         <br />
+         <br />
+         <br />
          <social-sign />
       </el-dialog>
    </div>

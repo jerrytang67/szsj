@@ -1,18 +1,13 @@
 import Vue from 'vue'
 import Router, { RouteConfig } from 'vue-router'
 import Layout from '@/layout/index.vue'
-import topAdminRoute from './modules/topAdminRouter'
 import auditManagement from './modules/auditManagemeng'
 import workFlowRoute from './modules/workflow'
 import adminRoute from './modules/admin'
 import cmsRoute from './modules/cms'
 import appRoute from './modules/appRoute'
-import craftsmanRoute from './modules/craftsmanRoute'
 import activityRoute from './modules/activityRoute'
-import qaRoute from './modules/qaRoute'
 import organizationRoute from './modules/organizationRoute'
-import timelineRoute from './modules/timelineRoute'
-import voteRoute from './modules/voteRoute'
 
 Vue.use(Router)
 
@@ -87,10 +82,6 @@ export const constantRoutes: RouteConfig[] = [
 export const asyncRouter: RouteConfig[] = [
    appRoute,
    cmsRoute,
-   timelineRoute,
-   craftsmanRoute,
-   qaRoute,
-   voteRoute,
    activityRoute,
 
    auditManagement,

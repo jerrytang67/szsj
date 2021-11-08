@@ -24,10 +24,6 @@ import { AuditsModule } from "@/store/modules/audit";
 @Component({
    components: {
       RejectDialog,
-      craftsmanRecommendAuditPanel: () =>
-         import("./panels/craftsmanRecommendAuditPanel.vue"),
-      craftsmanAuditPanel: () => import("./panels/craftsmanAuditPanel.vue"),
-      voteItemAuditPanel: () => import("./panels/voteItemAuditPanel.vue"),
    },
 })
 export default class MyAudit extends Vue {
@@ -35,22 +31,6 @@ export default class MyAudit extends Vue {
    select = 0;
    get tabs() {
       return [
-         {
-            title: `投票项 (${AuditsModule.getPanelDetail["voteItemAuditPanel"]?.count || ""
-               })`,
-            component: "voteItemAuditPanel",
-         },
-         {
-            title: `红色工匠 推荐 (${AuditsModule.getPanelDetail["craftsmanRecommendAuditPanel"]
-               ?.count || ""
-               })`,
-            component: "craftsmanRecommendAuditPanel",
-         },
-         {
-            title: `红色工匠 自荐 (${AuditsModule.getPanelDetail["craftsmanAuditPanel"]?.count || ""
-               })`,
-            component: "craftsmanAuditPanel",
-         },
       ];
    }
 }

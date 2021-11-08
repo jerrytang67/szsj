@@ -1318,6 +1318,24 @@ export class ConfigurationService {
   }
 }
 
+export class DashboardService {
+  /**
+   *
+   */
+  static getDashboard(options: IRequestOptions = {}): Promise<any> {
+    return new Promise((resolve, reject) => {
+      let url = '/api/services/Activity/Dashboard/GetDashboard';
+
+      const configs: IRequestConfig = getConfigs('get', 'application/json', url, options);
+
+      let data = null;
+
+      configs.data = data;
+      axios(configs, resolve, reject);
+    });
+  }
+}
+
 export class HostSettingsService {
   /**
    *
