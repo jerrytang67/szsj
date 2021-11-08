@@ -1,0 +1,212 @@
+tui-page {
+  --color-primary: #d23b39;
+  --color-secondary: #5c6ac4;
+  --color-light: #f9e6c8;
+  /* ... */
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  page {
+    width: 100%;
+    display: flex;
+
+    tui-page {
+      width: 100%;
+      overflow: hidden;
+    }
+  }
+
+  .btn {
+    @apply px-4 py-2 rounded  text-white text-xl bg-green-500;
+    &:active {
+      @apply bg-green-600;
+    }
+
+    &.md {
+      @apply px-2 py-1 text-sm;
+    }
+    &.sm {
+      @apply px-1 py-1 text-sm;
+    }
+    &.btn-white {
+      @apply bg-white text-indigo-900;
+      &:active {
+        @apply bg-gray-100;
+      }
+    }
+    &.btn-red {
+      @apply bg-red-600;
+      &:active {
+        @apply bg-red-700;
+      }
+    }
+    &.btn-yellow {
+      @apply bg-yellow-500;
+      &:active {
+        @apply bg-yellow-600;
+      }
+    }
+  }
+
+  .card {
+    @apply px-5 py-6 rounded-md bg-white overflow-hidden;
+  }
+
+  .zoom-in {
+    @apply transform transition ease-in-out duration-300;
+  }
+
+  .zoom-in:active {
+    @apply scale-110;
+  }
+
+  .cell {
+    border: 0;
+    border-bottom: 1rpx;
+    @apply h-12 flex flex-row text-black mx-4 items-center border-solid border-gray-100 text-lg;
+    .mix-icon {
+      @apply w-8 text-xl;
+    }
+
+    .required {
+      @apply flex items-center;
+    }
+
+    .required::after {
+      content: "*";
+      @apply text-red-500;
+    }
+  }
+
+  .card {
+    .divide-y::before {
+      content: " ";
+      position: absolute;
+      box-sizing: border-box;
+      top: 0;
+      left: 0;
+      width: 100%;
+      transform-orgin: left top;
+      point-events: none;
+      -webkit-transform: scaleY(0.5);
+      border: 0 solid #9ca3af;
+      border-top-width: 1px;
+    }
+  }
+
+  .fab {
+    @apply fixed;
+    .more {
+      @apply absolute opacity-0 scale-0 transform transition duration-1000 ease-in-out  flex items-center justify-center shadow  pointer-events-none;
+      &.onshow {
+        @apply opacity-100 scale-100 duration-300 pointer-events-auto;
+      }
+    }
+  }
+
+  .t-modal {
+    @apply fixed inset-0 w-full h-screen flex items-center justify-center z-40 transform duration-1000  opacity-0 pointer-events-none;
+    backface-visibility: hidden;
+    perspective: 2000upx;
+    background: rgba(0, 0, 0, 0.6);
+
+    &.onshow {
+      @apply opacity-100 duration-300 scale-100 overflow-x-hidden overflow-y-auto pointer-events-auto;
+    }
+  }
+
+  .t-modal .dialog {
+    @apply relative w-80 max-h-screen shadow-lg z-50 text-gray-900;
+    > .bar {
+      @apply font-bold h-12 flex flex-row items-center justify-center rounded-t-lg;
+    }
+    > .content {
+      @apply text-center py-4 px-4 text-gray-900 break-words overflow-y-scroll rounded-b-lg;
+      max-height: 70vh;
+    }
+    > .close {
+      @apply absolute inset-x-0 rounded-full text-center;
+      bottom: -50px;
+      > .icon-close {
+        @apply text-gray-100 text-2xl transform ease-in-out duration-300;
+        &:active {
+          @apply rotate-90 text-white;
+        }
+      }
+    }
+  }
+
+  /* load-more */
+  .uni-load-more {
+    display: flex;
+    flex-direction: row;
+    height: 80upx;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .uni-load-more__text {
+    font-size: 28upx;
+    color: #999;
+  }
+
+  .uni-load-more__img {
+    height: 24px;
+    width: 24px;
+    margin-right: 10px;
+  }
+
+  .uni-load-more__img > view {
+    position: absolute;
+  }
+
+  .uni-load-more__img > view view {
+    width: 6px;
+    height: 2px;
+    border-top-left-radius: 1px;
+    border-bottom-left-radius: 1px;
+    background: #999;
+    position: absolute;
+    opacity: 0.2;
+    transform-origin: 50%;
+    animation: load 1.56s ease infinite;
+  }
+
+  .uni-load-more__img > view view:nth-child(1) {
+    transform: rotate(90deg);
+    top: 2px;
+    left: 9px;
+  }
+
+  .uni-load-more__img > view view:nth-child(2) {
+    transform: rotate(180deg);
+    top: 11px;
+    right: 0;
+  }
+
+  .uni-load-more__img > view view:nth-child(3) {
+    transform: rotate(270deg);
+    bottom: 2px;
+    left: 9px;
+  }
+
+  .uni-load-more__img > view view:nth-child(4) {
+    top: 11px;
+    left: 0;
+  }
+
+  .rule {
+    // top: 400rpx;
+    width: 68rpx;
+    height: 160rpx;
+    border-width: 6rpx 0 6rpx 6rpx;
+    border-color: $base-color;
+    border-style: solid;
+    border-radius: 24rpx 0 0 24rpx;
+    opacity: 0.6;
+  }
+}

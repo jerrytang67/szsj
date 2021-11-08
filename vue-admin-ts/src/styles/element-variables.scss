@@ -1,0 +1,21 @@
+/* Element Variables */
+@import "./_variables.scss";
+
+
+// 基础色彩https://flatuicolors.com/palette/defo
+$--color-primary: $blue;
+$--color-success: $green;
+$--color-warning: $orange;
+$--color-danger: $red;
+$--color-info: $grey;
+$--button-font-weight: 400;
+$--color-text-regular: $black;
+$--border-color-light: #dfe4ed;
+$--border-color-lighter: #e6ebf5;
+$--table-border: 1px solid#dfe6ec;
+
+// Icon font path, required
+$--font-path: "~element-ui/lib/theme-chalk/fonts";
+
+// Apply overrided variables in Element UI
+@import "~element-ui/packages/theme-chalk/src/index";

@@ -1,0 +1,135 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  #app {
+    @apply h-screen;
+  }
+  .bg-gradient {
+    @apply bg-gradient-to-r from-orange-400 via-red-500 to-pink-500;
+  }
+  .bg-gradient-2 {
+    @apply bg-gradient-to-r from-cyan-400 to-sky-500;
+  }
+
+  .main-container {
+    @apply bg-gray-100;
+  }
+
+  [type="text"],
+  [type="password"] {
+    @apply p-2;
+  }
+
+  [type="text"],
+  [type="password"],
+  [type="button"],
+  [type="checkbox"],
+  [type="radio"],
+  textarea,
+  select {
+    @apply rounded-md border-gray-100 border bg-gray-100;
+    @apply focus:border-sky-300 focus:ring focus:ring-sky-200 focus:ring-opacity-50;
+    &:focus {
+      @apply outline-none;
+    }
+  }
+
+  .tag {
+    @apply p-1 text-xs rounded bg-blue-500 text-white text-center;
+  }
+
+  .link {
+    @apply text-blue-500;
+    &:hover {
+      @apply text-blue-600 underline;
+    }
+
+    &-red {
+      @apply text-red-500;
+
+      &:hover {
+        @apply text-red-600;
+      }
+    }
+
+    &:focus {
+      @apply outline-none;
+    }
+  }
+
+  .btn {
+    @apply rounded px-6 py-2 whitespace-nowrap;
+    &:focus {
+      @apply outline-none;
+    }
+    &:active {
+      @apply outline-none;
+    }
+
+    &.sm {
+      @apply px-2 py-1 text-xs;
+    }
+
+    &.btn-blue {
+      @apply bg-blue-500 text-white;
+
+      &:hover {
+        @apply bg-blue-400;
+      }
+    }
+
+    &.btn-red {
+      @apply bg-red-500 text-white;
+      &:hover {
+        @apply bg-red-400;
+      }
+    }
+
+    &.btn-indigo {
+      @apply bg-indigo-500 text-white;
+      &:hover {
+        @apply bg-indigo-400;
+      }
+    }
+
+    &.btn-white {
+      @apply bg-white text-gray-900 border;
+      &:hover {
+        @apply bg-gray-50;
+      }
+    }
+  }
+
+  .card {
+    @apply px-5 py-6 shadow-sm rounded-md bg-white overflow-hidden relative;
+  }
+
+  .zoom-in {
+    @apply transform transition ease-in-out duration-300;
+  }
+
+  .zoom-in:hover {
+    @apply scale-110;
+  }
+
+  .el-menu-item {
+    @apply flex items-center;
+  }
+
+  .el-dialog__wrapper {
+    @apply flex flex-col items-center justify-center;
+  }
+
+  .el-dialog__body {
+    max-height: 70vh !important;
+    overflow-y: auto !important;
+  }
+  .el-dialog {
+    margin-top: 0 !important;
+  }
+  .el-dialog__close.el-icon.el-icon-close {
+    @apply w-6 h-6 text-2xl mr-4 text-blue-500 hover:scale-125 hover:text-blue-700;
+  }
+}

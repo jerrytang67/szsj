@@ -1,0 +1,40 @@
+{{#if template}}
+<template>
+  <div>
+
+  </div>
+</template>
+{{/if}}
+
+{{#if script}}
+<script lang="ts">
+import { Component, Vue, Prop, Watch , Ref } from "vue-property-decorator";
+import { Route } from 'vue-router';
+import { Dictionary } from 'vue-router/types/router';
+import api from "@/api";
+
+@Component
+export default class {{ properCase name }} extends Vue {
+  
+  id :any = undefined;
+
+  created() {}
+
+  @Watch("$route", { immediate: true })
+  private onRouteChange(route: Route) {
+    // TODO: remove the "as Dictionary<string>" hack after v4 release for vue-router
+    // See https://github.com/vuejs/vue-router/pull/2050 for details
+    const query = route.query as Dictionary<string>;
+    if (query) {
+      this.id = query.id;
+    }
+  }
+}
+</script>
+{{/if}}
+
+{{#if style}}
+<style lang="scss" scoped>
+
+</style>
+{{/if}}

@@ -1,0 +1,8 @@
+﻿{
+  "culture": "zh-Hans",
+  "texts": {
+    "Permission:Activity.Default": "活动管理",
+    "Permission:Activity.Admin": "活动-管理员权限",
+    "OnlyCanEditSelfEntity": "只能修改自己的内容"
+  }
+}

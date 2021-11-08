@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp5.0</TargetFramework>
+        <UserSecretsId>dotnet-TTWork.Abp.Core-F8B3E9FE-D87E-4A20-B90B-D53C68B3C5B4</UserSecretsId>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Abp" Version="6.3.0" />
+        <PackageReference Include="Abp.AutoMapper" Version="6.3.0" />
+        <PackageReference Include="Abp.EntityFrameworkCore" Version="6.3.0" />
+        <PackageReference Include="Abp.Zero.Common" Version="6.3.0" />
+        <PackageReference Include="Abp.ZeroCore" Version="6.3.0" />
+        <PackageReference Include="FluentValidation" Version="9.5.3" />
+        <PackageReference Include="Abp.FluentValidation" Version="6.3.0" />
+        <PackageReference Include="MediatR" Version="9.0.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.4" />
+        <PackageReference Include="Newtonsoft.Json.Schema" Version="3.0.14" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="OneOf" Version="3.0.178" />
+        <PackageReference Include="TT.HttpClient.Weixin" Version="4.2.3-beta" />
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\TTWork.Lib\TTWork.Lib.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <EmbeddedResource Include="Localization\JsonSources\TTWork.json" />
+    </ItemGroup>
+
+</Project>

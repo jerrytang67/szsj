@@ -1,0 +1,244 @@
+{
+	"pages": [{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "吴江总工会",
+				"enablePullDownRefresh": true,
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/index/my",
+			"style": {
+				"navigationBarTitleText": "我的",
+				"enablePullDownRefresh": true,
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/index/login",
+			"style": {
+				"navigationBarTitleText": "登录"
+			}
+		},
+		{
+			"path": "pages/cms/category",
+			"style": {
+				"navigationBarTitleText": "分类页",
+				"enablePullDownRefresh": true
+			}
+		},
+		{
+			"path": "pages/cms/content",
+			"style": {
+				"navigationBarTitleText": "内容页",
+				"enablePullDownRefresh": true
+			}
+		},
+		{
+			"path": "pages/index/setting",
+			"style": {
+				"navigationBarTitleText": "设置",
+				"enablePullDownRefresh": true
+			}
+		},
+		{
+			"path": "pages/cms/category1",
+			"style": {
+				"navigationBarTitleText": "寻访动态",
+				"enablePullDownRefresh": true
+			}
+		},
+		{
+			"path": "pages/craftsman/index",
+			"style": {
+				"navigationBarTitleText": "吴江红色工匠",
+				"enablePullDownRefresh": true
+			}
+		},
+		{
+			"path": "pages/craftsman/tuijian",
+			"style": {
+				"navigationBarTitleText": "吴江红色工匠",
+				"enablePullDownRefresh": true
+			}
+		},
+		{
+			"path": "pages/index/webView",
+			"style": {
+				"navigationBarTitleText": "webView",
+				"enablePullDownRefresh": true
+			}
+		},
+		{
+			"path": "pages/index/h5",
+			"style": {
+				"navigationBarTitleText": "h5"
+			}
+		},
+		{
+			"path": "pages/craftsman/vote",
+			"style": {
+				"navigationBarTitleText": "投票",
+				"enablePullDownRefresh": true
+			}
+		},
+		{
+			"path": "pages/craftsman/formRecommendSelf",
+			"style": {
+				"navigationBarTitleText": "自荐申报表"
+			}
+		},
+		{
+			"path": "pages/craftsman/formRecommendOther",
+			"style": {
+				"navigationBarTitleText": "推荐人选申报表"
+			}
+		},
+		{
+			"path": "pages/craftsman/myRecommendOther",
+			"style": {
+				"navigationBarTitleText": "推荐记录",
+				"enablePullDownRefresh": true
+			}
+		},
+		{
+			"path": "pages/activity/pointActivity",
+			"style": {
+				"navigationBarTitleText": "积分活动",
+				"enablePullDownRefresh": true
+			}
+		},
+		{
+			"path": "pages/user/pointLog",
+			"style": {
+				"navigationBarTitleText": "我的积分日志",
+				"enablePullDownRefresh": true,
+				"navigationBarBackgroundColor": "#EF7F1D"
+			}
+		},
+		{
+			"path": "pages/activity/check",
+			"style": {
+				"navigationBarTitleText": "核销",
+				"enablePullDownRefresh": true
+			}
+		},
+		{
+			"path": "pages/activity/luckDraw",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": true
+			}
+		},
+		{
+			"path": "pages/activity/myPrizes",
+			"style": {
+				"navigationBarTitleText": "我的奖品",
+				"enablePullDownRefresh": true
+			}
+		},
+		{
+			"path": "pages/qa/index",
+			"style": {
+				"navigationBarTitleText": "",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/timeline/index",
+			"style": {
+				"navigationBarTitleText": "吴江区总工会",
+				"enablePullDownRefresh": true
+			}
+		},
+		{
+			"path": "pages/qa/plan",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		},
+		{
+			"path": "pages/timeline/event",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": true
+			}
+		},
+		{
+			"path": "pages/timeline/addFile",
+			"style": {
+				"navigationBarTitleText": "上传图片"
+			}
+		},
+		{
+			"path": "pages/qa/rank",
+			"style": {
+				"navigationBarTitleText": "排行榜",
+				"enablePullDownRefresh": true,
+				"navigationStyle": "custom"
+			}
+		},		
+		{
+			"path": "pages/vote/index",
+			"style": {
+				"navigationBarTitleText": "投票活动",
+				"enablePullDownRefresh": true
+				// ,"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/vote/form",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		}
+		// PLOP PLACEHOLDER
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "white",
+		"navigationBarTitleText": "uniapp",
+		"navigationBarBackgroundColor": "#c9171e"
+	},
+	"tabBar": {
+		"selectedColor": "#c9171e",
+		"color": "#8B8B8B",
+		"list": [{
+				"pagePath": "pages/index/index",
+				"iconPath": "static/images/1.png",
+				"selectedIconPath": "static/images/_1.png",
+				"text": "首页"
+			},
+			// {
+			// 	"pagePath": "pages/cms/category1",
+			// 	"iconPath": "static/images/2.png",
+			// 	"selectedIconPath": "static/images/_2.png",
+			// 	"text": "寻访动态"
+			// },
+			// {
+			// 	"pagePath": "pages/craftsman/index",
+			// 	"iconPath": "static/images/3.png",
+			// 	"selectedIconPath": "static/images/_3.png",
+			// 	"text": "红色工匠"
+			// },
+			{
+				"pagePath": "pages/cms/category1",
+				"iconPath": "static/images/6.png",
+				"selectedIconPath": "static/images/_6.png",
+				"text": "工会活动"
+			},
+			// {
+			// 	"pagePath": "pages/qa/index",
+			// 	"iconPath": "static/images/5.png",
+			// 	"selectedIconPath": "static/images/_5.png",
+			// 	"text": "党史竞答"
+			// },
+			{
+				"pagePath": "pages/index/my",
+				"iconPath": "static/images/4.png",
+				"selectedIconPath": "static/images/_4.png",
+				"text": "我的"
+			}
+		]
+	}
+}

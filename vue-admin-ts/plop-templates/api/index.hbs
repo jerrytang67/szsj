@@ -1,0 +1,36 @@
+import request from '../../utils/request.js'
+
+export default {
+  getAll: data => request({
+    url: '/api/services/app/{{name}}/GetAll',
+    method: 'get',
+    params: data
+  }),
+  get: data => request({
+    url: '/api/services/app/{{name}}/Get',
+    method: 'get',
+    params: data
+  }),
+  getForEdit: data => request({
+     url: '/api/services/app/{{name}}/GetForEdit',
+     method: 'get',
+     params: data
+  }),
+  create: data => request({
+    url: '/api/services/app/{{name}}/Create',
+    method: 'post',
+    data: data
+  }),
+  update: data => request({
+    url: '/api/services/app/{{name}}/Update',
+    method: 'put',
+    data: data
+  }),
+  delete: function(data) {
+    return request({
+      url: '/api/services/app/{{name}}/delete',
+      method: 'delete',
+      params: data
+    })
+  }
+}

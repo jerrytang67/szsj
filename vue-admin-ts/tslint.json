@@ -1,0 +1,15 @@
+{
+    "rulesDirectory": [
+        // "node_modules/tslint-microsoft-contrib"
+    ],
+    "linterOptions": {
+        "exclude": [
+            "node_modules/**"
+        ]
+    },
+    "rules": {
+        "vue/no-use-v-if-with-v-for": "off",
+        "vue/no-v-for-template-key": "off",
+        "vue/require-v-for-key": "off"
+    }
+}

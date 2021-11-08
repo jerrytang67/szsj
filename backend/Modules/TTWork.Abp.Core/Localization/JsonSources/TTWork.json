@@ -1,0 +1,10 @@
+﻿{
+  "culture": "zh-Hans",
+  "texts": {
+    "Permission:Pages": "页面",
+    "Permission:Administration": "超级管理员权限",
+    "Permission:Dashboard": "数据面板",
+    "Permission:Organization": "组织机构",
+    "Permission:Organization:Administration": "组织机构管理权限"
+  }
+}

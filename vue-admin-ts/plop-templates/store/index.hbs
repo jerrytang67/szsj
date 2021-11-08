@@ -1,0 +1,27 @@
+import { VuexModule, Module, Action, Mutation, getModule } from 'vuex-module-decorators'
+import { removeToken } from '@/utils/cookies'
+import store from '@/store'
+
+import api from '@/api/index'
+
+@Module({ dynamic: true, store, name: '{{ name }}' })
+class {{ properCase name }} extends VuexModule {
+
+  name : string | undefined;
+
+  get getName() {
+    return this.name;
+  }
+
+
+  @Mutation
+  private SET_Name(name: string) {
+    this.name = name
+  }
+
+  @Action
+  public SetName(name:  string) {
+    this.SET_Name(name)
+  }
+
+export const {{ properCase name }}Module = getModule({{ properCase name }})

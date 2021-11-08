@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp5.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Abp" Version="6.3.0" />
+      <PackageReference Include="Abp.AspNetCore" Version="6.3.0" />
+      <PackageReference Include="WorkFlowCore" Version="3.3.6" />
+      <PackageReference Include="WorkflowCore.DSL" Version="3.3.1" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.4" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.4" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\TTWork.Abp.Core\TTWork.Abp.Core.csproj" />
+    </ItemGroup>
+</Project>

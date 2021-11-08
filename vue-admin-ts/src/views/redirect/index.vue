@@ -1,0 +1,14 @@
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
+
+@Component({
+  name: "redirect"
+})
+export default class extends Vue {
+  created() {
+    const { params, query } = this.$route;
+    const { path } = params;
+    this.$router.replace({ path: "/" + path, query });
+  }
+}
+</script>
