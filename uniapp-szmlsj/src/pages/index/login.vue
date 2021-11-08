@@ -3,7 +3,7 @@
       <div class="flex flex-col text-center justify-center w-full" style="min-height:90vh;">
          <img class="rounded-full mx-auto w-24 h-24 shadow-white" src="https://img.wujiangapp.com/wjzgh/2021-04-12/upload_hhoetsv443lbxhv23fgs0lq6tbcoy6ip.jpg" />
          <div class="pt-4 text-xl font-medium">
-            <text>吴江总工会</text>
+            <text>盛泽目澜市集</text>
          </div>
          <!-- #ifdef MP-WEIXIN -->
          <div class="p-8">

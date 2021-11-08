@@ -2,7 +2,7 @@ import Upyun from "./upyun-wxapp-sdk";
 import dayjs from "dayjs";
 const upyun = new Upyun.Upyun({
   bucket: "wjhaomama",
-  operator: "szsj",
+  operator: "wjzgh",
   getSignatureUrl:
     process.env.VUE_APP_BASE_API + "/api/services/app/Upload/GetSignature",
 });

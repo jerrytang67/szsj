@@ -1,6 +1,5 @@
 {
-	"pages": [
-		{
+	"pages": [{
 			"path": "pages/index/index",
 			"style": {
 				"navigationBarTitleText": "盛泽目澜市集",
@@ -40,6 +39,13 @@
 			"path": "pages/index/setting",
 			"style": {
 				"navigationBarTitleText": "设置",
+				"enablePullDownRefresh": true
+			}
+		},
+		{
+			"path": "pages/cms/category1",
+			"style": {
+				"navigationBarTitleText": "寻访动态",
 				"enablePullDownRefresh": true
 			}
 		},
@@ -92,6 +98,7 @@
 				"enablePullDownRefresh": true
 			}
 		}
+		// PLOP PLACEHOLDER
 	],
 	"globalStyle": {
 		"navigationBarTextStyle": "white",
@@ -101,8 +108,7 @@
 	"tabBar": {
 		"selectedColor": "#c9171e",
 		"color": "#8B8B8B",
-		"list": [
-			{
+		"list": [{
 				"pagePath": "pages/index/index",
 				"iconPath": "static/images/1.png",
 				"selectedIconPath": "static/images/_1.png",

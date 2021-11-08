@@ -35,7 +35,7 @@ namespace TTWork.Abp.AppManagement.Apps
 
             if (app == null)
             {
-                throw new AbpException("Undefined setting: " + name);
+                throw new AbpException("Undefined AppName: " + name);
             }
 
             return app;

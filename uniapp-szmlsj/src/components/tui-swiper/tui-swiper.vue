@@ -57,10 +57,6 @@ export default class TuiSwiper extends Vue {
       const index = e.detail.current;
       this.swiperCurrent = index;
    }
-
-   go(dto: any) {
-      if(dto.swiperType === 0 && )
-   }
 }
 </script>
 
