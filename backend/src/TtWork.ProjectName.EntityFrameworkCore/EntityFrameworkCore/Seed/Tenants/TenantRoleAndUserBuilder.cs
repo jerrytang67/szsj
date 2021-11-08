@@ -31,35 +31,8 @@ namespace TtWork.ProjectName.EntityFrameworkCore.Seed.Tenants
         public void Create()
         {
             CreateRolesAndUsers();
-            // Create_CmsCategory();
         }
 
-        private void Create_CmsCategory()
-        {
-            bool needsave = false;
-            if (!_context.CmsCategory.Any(x => x.Name == "寻访动态" && x.TenantId == _tenantId))
-            {
-                _context.CmsCategory.Add(new CmsCategory()
-                {
-                    Name = "寻访动态",
-                    TenantId = _tenantId
-                });
-                needsave = true;
-            }
-
-            if (!_context.CmsCategory.Any(x => x.Name == "首届回顾" && x.TenantId == _tenantId))
-            {
-                _context.CmsCategory.Add(new CmsCategory()
-                {
-                    Name = "首届回顾",
-                    TenantId = _tenantId
-                });
-                needsave = true;
-            }
-
-            if (needsave)
-                _context.SaveChanges();
-        }
 
 
         private void CreateRolesAndUsers()

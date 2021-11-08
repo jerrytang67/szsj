@@ -3,7 +3,7 @@
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "吴江总工会",
+				"navigationBarTitleText": "盛泽目澜市集",
 				"enablePullDownRefresh": true,
 				"navigationStyle": "custom"
 			}
@@ -40,13 +40,6 @@
 			"path": "pages/index/setting",
 			"style": {
 				"navigationBarTitleText": "设置",
-				"enablePullDownRefresh": true
-			}
-		},
-		{
-			"path": "pages/cms/category1",
-			"style": {
-				"navigationBarTitleText": "寻访动态",
 				"enablePullDownRefresh": true
 			}
 		},
@@ -99,7 +92,6 @@
 				"enablePullDownRefresh": true
 			}
 		}
-		// PLOP PLACEHOLDER
 	],
 	"globalStyle": {
 		"navigationBarTextStyle": "white",
@@ -116,30 +108,6 @@
 				"selectedIconPath": "static/images/_1.png",
 				"text": "首页"
 			},
-			// {
-			// 	"pagePath": "pages/cms/category1",
-			// 	"iconPath": "static/images/2.png",
-			// 	"selectedIconPath": "static/images/_2.png",
-			// 	"text": "寻访动态"
-			// },
-			// {
-			// 	"pagePath": "pages/craftsman/index",
-			// 	"iconPath": "static/images/3.png",
-			// 	"selectedIconPath": "static/images/_3.png",
-			// 	"text": "红色工匠"
-			// },
-			{
-				"pagePath": "pages/cms/category1",
-				"iconPath": "static/images/6.png",
-				"selectedIconPath": "static/images/_6.png",
-				"text": "工会活动"
-			},
-			// {
-			// 	"pagePath": "pages/qa/index",
-			// 	"iconPath": "static/images/5.png",
-			// 	"selectedIconPath": "static/images/_5.png",
-			// 	"text": "党史竞答"
-			// },
 			{
 				"pagePath": "pages/index/my",
 				"iconPath": "static/images/4.png",
