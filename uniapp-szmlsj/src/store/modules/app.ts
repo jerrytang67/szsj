@@ -42,9 +42,9 @@ class App extends VuexModule {
 
     @Action
     public async GetSetting() {
-        await api.getSetting().then(res => {
-            this.SET_SETTING(res);
-        })
+        // await api.getSetting().then(res => {
+        //     this.SET_SETTING(res);
+        // })
     }
 
     @Action

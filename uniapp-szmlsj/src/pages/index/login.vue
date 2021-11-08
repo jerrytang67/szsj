@@ -1,13 +1,13 @@
 <template>
    <tui-page>
-      <div class="flex flex-col text-center justify-center w-full" style="min-height:90vh;">
-         <img class="rounded-full mx-auto w-24 h-24 shadow-white" src="https://img.wujiangapp.com/wjzgh/2021-04-12/upload_hhoetsv443lbxhv23fgs0lq6tbcoy6ip.jpg" />
+      <div class="bg-white h-screen flex flex-col text-center justify-center w-full" style="min-height:90vh;">
+         <img class="mx-auto w-24 h-24 shadow-white" src="https://cdn.wujiangapp.com/PicGo/202111081508437.jpg" />
          <div class="pt-4 text-xl font-medium">
             <text>盛泽目澜市集</text>
          </div>
          <!-- #ifdef MP-WEIXIN -->
          <div class="p-8">
-            <button class="btn btn-red py-2" open-type="getPhoneNumber" @getphonenumber="getphonenumber($event,true)">
+            <button class="btn btn-green py-2" open-type="getPhoneNumber" @getphonenumber="getphonenumber($event,true)">
                手机号码登录</button>
 
             <!-- <button class="btn bg-green-500 py-2" @tap="bindGetUserInfo(true)">

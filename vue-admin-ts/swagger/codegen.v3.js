@@ -4,7 +4,7 @@ const { codegen } = require("swagger-vue-codegen");
 codegen({
   methodNameMode: "path",
   //   source: require('../swagger3.json'),
-  remoteUrl: "http://localhost:21031/swagger/v1/swagger.json",
+  remoteUrl: "http://localhost:21026/swagger/v1/swagger.json",
   outputDir: "./src/api",
   fileName: "appService.ts",
   useStaticMethod: true,

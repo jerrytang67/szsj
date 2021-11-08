@@ -18,7 +18,7 @@
       <view class="card py-4">
          <view class="flex justify-between items-center">
             <view class="font-bold text-lg border-red-700 border-solid border-0 border-l-4">
-               <text class="ml-2 text-red-700">工会</text>动态
+               <text class="ml-2 text-red-700">线上</text>活动
             </view>
             <view class="flex items-center text-gray-400" @tap="cmsMore(9)">
                更多

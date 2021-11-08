@@ -17,10 +17,10 @@
                <text class="text-lg text-red-500">{{currentUser.jf || 0}}</text>
                <text>积分</text>
             </view>
-            <view class="item zoom-in" @tap="navTo(`/pages/user/pointLog`)">
+            <!-- <view class="item zoom-in" @tap="navTo(`/pages/user/pointLog`)">
                <view class="icon icon-detailed text-2xl text-red-500"></view>
                <text>积分明细</text>
-            </view>
+            </view> -->
             <view class="item zoom-in" @tap="navTo(`/pages/activity/myPrizes`)">
                <view class="icon icon-jiangpin text-2xl text-red-500"></view>
                <text>我的奖品</text>
@@ -28,17 +28,6 @@
          </view>
       </view>
       <view class="pt-4 w-86 mx-auto">
-         <view class="money-wrap flex justify-arround w-full mt-4 py-2 bg-white rounded-lg">
-            <view class="item zoom-in" @tap="navTo(`/pages/craftsman/myRecommendOther`)">
-               <view class="icon icon-tuijian text-3xl text-red-500"></view>
-               <text>推荐记录</text>
-            </view>
-            <view class="item zoom-in" @tap="info('活动尚未开始，敬请期待！')">
-               <!-- @tap="navTo(`/pages/craftsman/myVote`)" -->
-               <view class="icon icon-vote  text-3xl text-red-500"></view>
-               <text>投票记录</text>
-            </view>
-         </view>
 
          <view class="mt-4 bg-white rounded">
             <!-- <view class="cell" @tap="toggleDark">

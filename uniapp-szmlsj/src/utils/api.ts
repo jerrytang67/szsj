@@ -45,7 +45,6 @@ export default {
 
     getSetting: () => request("GET", "/api/services/LaborUnion/Client/GetSettings"),
 
-
     //小程序
     client_miniAuth: (data: any) => request("POST", `/api/TokenAuth/WeixinMiniAuthenticate`, data),
     phoneAuth: (data: any) => request("POST", `/api/TokenAuth/WeixinMiniPhoneAuthenticate`, data),
@@ -86,7 +85,6 @@ export default {
     createCraftsman: (data: any) => request("POST", `/api/services/LaborUnion/Craftsman/Create`, data),
     updateCraftsman: (data: any) => request("PUT", `/api/services/LaborUnion/Craftsman/Update`, data),
 
-
     //activity
     getPointActivity: (data: any) => request("GET", `/api/services/Activity/PointActivity/Get`, data),
     getPoint: (data: any) => request("POST", `/api/services/Activity/PointActivity/PostGetPoint`, data),
@@ -103,36 +101,6 @@ export default {
     getAllMyUserPrize: (data: any) => request("GET", `/api/services/Activity/UserPrize/GetAllMy`, data),
     getCheckQr: (data: any) => request("GET", `/api/services/Activity/UserPrize/GetCheckQr`, data),
     userPrizeSetExpress :(data: any) => request("POST", `/api/services/Activity/UserPrize/SetExpress`, data),
-
-    //vote
-    getVotePlan: (data: any) => request("GET", `/api/services/Activity/VotePlan/Get`, data),
-    getForEditFromPlan: (data: any) => request("GET", `/api/services/Activity/VoteItem/GetForEditFromPlan`, data),
-    createVoteItem: (data: any) => request("POST", `/api/services/Activity/VoteItem/Create`, data),
-    updateVoteItem: (data: any) => request("PUT", `/api/services/Activity/VoteItem/Update`, data),
-
-    //qa
-    getQAPlan: (data: any) => request("GET", `/api/services/QA/QAPlan/Get`, data),
-    checkUserInfo: () => request("GET", `/api/services/QA/QAPlan/CheckUserInfo`),
-    postUserInfo: (data: any) => request("POST", `/api/services/QA/QAPlan/PostUserInfo`, data),
-
-    getUserQuestionLog: (data: any) => request("GET", `/api/services/QA/UserQuestionLog/Get`, data),
-    getUserQuestion: (data: any) => request("GET", `/api/services/QA/UserQuestionLog/GetUserQuestion`, data),
-    postUserQuestion: (data: any) => request("POST", `/api/services/QA/UserQuestionLog/PostUserQuestion`, data),
-    getPoints: (data: any) => request("GET", `/api/services/QA/UserQuestionLog/GetPoints`, data),
-
-    getRankList: (data: any) => request("GET", `/api/services/QA/UserQuestionLog/GetRankList`, data),
-
-
-    //timeline
-    getAllEvent: (data: any) => request("GET", `/api/services/Timeline/TimelineEvent/GetAll`, data),
-    getEvent: (data: any) => request("GET", `/api/services/Timeline/TimelineEvent/Get`, data),
-
-    getAllFile: (data: any) => request("GET", `/api/services/Timeline/TimelineFile/GetAll`, data),
-    postAddFiles: (data: any) => request("POST", `/api/services/Timeline/TimelineFile/PostAddFiles`, data),
-
-
-
-
 
     userPriceCheck: (data: any) => request("POST", `/api/services/Activity/UserPrize/Check`, data),
 

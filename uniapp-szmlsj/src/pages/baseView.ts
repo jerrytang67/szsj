@@ -49,7 +49,6 @@ export class BaseView extends Vue {
         return AppModule.getSetting;
     }
 
-
     isTabPage(page: string) {
         let _result = false;
         tabPages
@@ -213,24 +212,23 @@ export class BaseView extends Vue {
     }
 
     showPolicy(type: number) {
-        api.getSetting().then((res: any) => {
-            if (type === 1)
-                uni.showModal({
-                    title: "用户使用协议",
-                    content: res.userAgreement,
-                    showCancel: false,
-                    confirmText: "同意",
-                });
-            else if (type === 2)
-                uni.showModal({
-                    title: "隐私政策",
-                    content: res.privacyPolicy,
-                    showCancel: false,
-                    confirmText: "同意",
-                });
-        });
+        // api.getSetting().then((res: any) => {
+        //     if (type === 1)
+        //         uni.showModal({
+        //             title: "用户使用协议",
+        //             content: res.userAgreement,
+        //             showCancel: false,
+        //             confirmText: "同意",
+        //         });
+        //     else if (type === 2)
+        //         uni.showModal({
+        //             title: "隐私政策",
+        //             content: res.privacyPolicy,
+        //             showCancel: false,
+        //             confirmText: "同意",
+        //         });
+        // });
     }
-
 
     cmsGo(c: any) {
         console.log("cmsGo", c)

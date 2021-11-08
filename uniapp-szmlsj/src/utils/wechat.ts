@@ -14,7 +14,6 @@ export default {
     //初始化sdk配置  
     initJssdk: function (callback: any) {
         var url = location.href.split('#')[0];
-        
         Promise.all([api.getJssdk({
             // url: encodeURIComponent(location.href.split('#')[0])
             url: url

@@ -39,6 +39,7 @@ module.exports = {
       "\\\\:": "--",
       "\\\\/": "_",
       "^\\*$": "page",
+      "^\\*,": "page,",
     }),
     // 根据平台差异进行不同的样式处理
     ...(process.env.UNI_PLATFORM === "h5"
