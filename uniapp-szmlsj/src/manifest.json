@@ -1,5 +1,5 @@
 {
-    "name": "吴江总工会",
+    "name": "盛泽目澜市集",
     "appid": "",
     "description": "",
     "versionName": "1.0.0",
@@ -53,7 +53,7 @@
     "mp-weixin": {
         /* 小程序特有相关 */
         "usingComponents": true,
-        "appid": "wx3452d3067b75dc88",
+        "appid": "wx9a37456d2ada3d9f",
         "setting": {
             "urlCheck": false,
             "checkSiteMap": false
