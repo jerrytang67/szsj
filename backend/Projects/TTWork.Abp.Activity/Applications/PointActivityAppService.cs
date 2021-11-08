@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Globalization;
 using System.Threading.Tasks;
 using Abp.Application.Services.Dto;
 using Abp.Authorization;
@@ -13,12 +12,11 @@ using TT.Extensions;
 using TT.Extensions.Redis;
 using TTWork.Abp.Activity.Definitions;
 using TTWork.Abp.Activity.Domains;
+using TTWork.Abp.Activity.Events.Commands;
 using TTWork.Abp.Core;
 using TTWork.Abp.Core.Applications.Dtos;
 using TTWork.Abp.Core.Definitions;
 using TTWork.Abp.Core.Events.Queries;
-using TTWork.Abp.LaborUnion.Definitions;
-using TTWork.Abp.LaborUnion.Events.Commands;
 using static System.Int64;
 
 namespace TTWork.Abp.Activity.Applications
@@ -58,7 +56,7 @@ namespace TTWork.Abp.Activity.Applications
         {
             long shareFrom;
             TryParse(input.ShareFrom, out shareFrom);
-            
+
             var activity = await Repository.GetAll().AsNoTracking().FirstOrDefaultAsync(x => x.Id == input.ActivityId);
 
             if (shareFrom > 0 && AbpSession.UserId!.Value == shareFrom)
@@ -144,14 +142,14 @@ namespace TTWork.Abp.Activity.Applications
                         if (!openid.IsNullOrEmptyOrWhiteSpace())
                         {
                             await _mediator.Publish(new MessageSendCommand(MessageType.WechatTemplate, new SendWechatTemplateDetail(
-                                ProjectApp.ZGH_MINI,
-                                new[] {openid},
+                                ProjectApp.SZMLSJ_MINI,
+                                new[] { openid },
                                 "dwNvsUYLNMaQLoTVPedPtngxzztKG6GmmVBXBvE5zZc",
                                 new
                                 {
-                                    thing2 = new {value = "分享成功"}, //通知内容
-                                    time3 = new {value = $"{DateTime.Now:d}"}, //通知时间
-                                    thing4 = new {value = $"点击消息进入活动"}, //提示说明
+                                    thing2 = new { value = "分享成功" }, //通知内容
+                                    time3 = new { value = $"{DateTime.Now:d}" }, //通知时间
+                                    thing4 = new { value = $"点击消息进入活动" }, //提示说明
                                 }, $"pages/activity/pointActivity?id={activity.Id}"
                             )));
 

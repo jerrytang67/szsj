@@ -12,8 +12,6 @@ namespace TTWork.Abp.Activity.EntityFrameworkCore
         public DbSet<LuckDraw> LuckDraws { get; set; }
         public DbSet<LuckDrawPrize> LuckDrawPrizes { get; set; }
         public DbSet<UserPrize> UserPrizes { get; set; }
-        public DbSet<VotePlan> VotePlans { get; set; }
-        public DbSet<VoteItem> VoteItems { get; set; }
         public DbSet<UserLuckTime> UserLuckTimes { get; set; }
     }
 }

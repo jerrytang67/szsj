@@ -10,9 +10,9 @@ namespace TTWork.Abp.Activity.Definitions
     {
         public override void Define(IAuditDefinitionContext context)
         {
-            context.Add(
-                Create<VoteItemAuditQuery>(VoteAudit.VoteItem, "G", "T")
-            );
+            // context.Add(
+            //     Create<VoteItemAuditQuery>(VoteAudit.VoteItem, "G", "T")
+            // );
         }
 
         private AuditDefinition Create<T>(string name, params string[] providers) where T : class, IAuditQueryBase, new()
@@ -26,10 +26,5 @@ namespace TTWork.Abp.Activity.Definitions
 
     public static class ActivityAudit
     {
-    }
-
-    public static class VoteAudit
-    {
-        public const string VoteItem = "Audit_VoteItem";
     }
 }

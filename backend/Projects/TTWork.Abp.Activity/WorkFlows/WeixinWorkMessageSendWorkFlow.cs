@@ -4,7 +4,7 @@ using TTWork.Abp.WorkFlowCore.Interfaces;
 using TTWork.Abp.WorkFlowCore.Models;
 using WorkflowCore.Interface;
 
-namespace TTWork.Abp.LaborUnion.WorkFlows
+namespace TTWork.Abp.Activity.WorkFlows
 {
     public class WeixinWorkMessageSendWorkFlow : IAbpWorkflow, ITransientDependency
     {

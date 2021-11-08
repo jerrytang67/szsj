@@ -8,18 +8,18 @@ namespace TTWork.Abp.Activity.Definitions
     {
         public override void Define(IAppDefinitionContext context)
         {
-            // context.Add(new AppDefinition(ProjectApp.ZGH_MINI,
-            //         ProjectApp.ZGH_MINI,
-            //         "小程序",
-            //         null,
-            //         new LocalizableString(ProjectApp.ZGH_MINI, ActivityConsts.LocalizationSourceName)
-            //     )
-            // );
+            context.Add(new AppDefinition(ProjectApp.SZMLSJ_MINI,
+                    ProjectApp.SZMLSJ_MINI,
+                    "小程序",
+                    null,
+                    new LocalizableString(ProjectApp.SZMLSJ_MINI, ActivityConsts.LocalizationSourceName)
+                )
+            );
         }
     }
 
-    // public static class ProjectApp
-    // {
-    //     public const string ZGH_MINI = "ZGH_MINI";
-    // }
+    public static class ProjectApp
+    {
+        public const string SZMLSJ_MINI = "SZMLSJ_MINI";
+    }
 }

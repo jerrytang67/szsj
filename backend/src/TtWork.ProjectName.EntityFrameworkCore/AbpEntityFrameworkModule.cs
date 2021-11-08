@@ -3,9 +3,6 @@ using Abp.Modules;
 using Abp.Reflection.Extensions;
 using Abp.Zero.EntityFrameworkCore;
 using TTWork.Abp.Activity;
-using TTWork.Abp.LaborUnion;
-using TTWork.Abp.QA;
-using TTWork.Abp.Timeline;
 using TTWork.Abp.WorkFlowCore;
 using TtWork.ProjectName.EntityFrameworkCore;
 using TtWork.ProjectName.EntityFrameworkCore.Seed;
@@ -16,10 +13,7 @@ namespace TtWork.ProjectName
             typeof(ProjectCoreModule),
             typeof(WorkFlowCoreModule),
             typeof(AbpZeroCoreEntityFrameworkCoreModule),
-            typeof(ActivityModule),
-            typeof(LaborUnionModule),
-            typeof(TimelineModule),
-            typeof(QAModule)
+            typeof(ActivityModule)
         )
     ]
     public class ProjectEntityFrameworkModule : AbpModule

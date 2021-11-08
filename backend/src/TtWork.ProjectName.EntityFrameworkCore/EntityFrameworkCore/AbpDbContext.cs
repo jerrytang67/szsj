@@ -19,12 +19,6 @@ using TTWork.Abp.Core.Domains.Weixin;
 using TTWork.Abp.Core.MultiTenancy;
 using TTWork.Abp.FeatureManagement.Domain;
 using TTWork.Abp.FeatureManagement.EntityFrameworkCore;
-using TTWork.Abp.LaborUnion.Domains;
-using TTWork.Abp.LaborUnion.EntityFrameworkCore;
-using TTWork.Abp.QA.Domains;
-using TTWork.Abp.QA.EntityFrameworkCore;
-using TTWork.Abp.Timeline.Domains;
-using TTWork.Abp.Timeline.EntityFrameworkCore;
 using TTWork.Abp.WorkFlowCore.EntityFrameworkCore;
 using TTWork.Abp.WorkFlowCore.Models;
 using TtWork.ProjectName.Entities.Cms;
@@ -36,9 +30,6 @@ namespace TtWork.ProjectName.EntityFrameworkCore
         IAuditDbContext,
         IFeatureDbContext,
         IActivityDbContext,
-        ILaborUnionDbContext,
-        ITimelineDbContext,
-        IQADbContext,
         IWorkFlowCoreDbContext
     {
         /* Define a DbSet for each entity of the application */
@@ -65,8 +56,7 @@ namespace TtWork.ProjectName.EntityFrameworkCore
 
         public DbSet<Poster> Poster { get; set; }
         public DbSet<App> Apps { get; set; }
-
-
+        
         #region ActivityDbContext
 
         public DbSet<PointActivity> PointActivities { get; set; }
@@ -75,28 +65,9 @@ namespace TtWork.ProjectName.EntityFrameworkCore
         public DbSet<LuckDraw> LuckDraws { get; set; }
         public DbSet<LuckDrawPrize> LuckDrawPrizes { get; set; }
         public DbSet<UserPrize> UserPrizes { get; set; }
-        public DbSet<VotePlan> VotePlans { get; set; }
-        public DbSet<VoteItem> VoteItems { get; set; }
         public DbSet<UserLuckTime> UserLuckTimes { get; set; }
 
         #endregion
-
-
-        #region ILaborUnionDbContext
-
-        public DbSet<CraftsmanRecommend> CraftsmanRecommends { get; set; }
-        public DbSet<Craftsman> Craftsman { get; set; }
-
-        #endregion
-
-        #region Timeline
-
-        public DbSet<TimelineEvent> TimelineEvents { get; set; }
-        public DbSet<TimelineCategory> TimelineCategories { get; set; }
-        public DbSet<TimelineFile> TimelineFiles { get; set; }
-
-        #endregion
-
 
         #region AuditManagement Module
 
@@ -123,17 +94,7 @@ namespace TtWork.ProjectName.EntityFrameworkCore
         public DbSet<PersistedWorkflowDefinition> PersistedWorkflowDefinitions { get; set; }
 
         #endregion
-
-
-        #region QA
-
-        public DbSet<QAPlan> QAPlans { get; set; }
-        public DbSet<QAQuestion> QAQuestions { get; set; }
-        public DbSet<UserQuestionLog> UserQuestionLogs { get; set; }
-
-        #endregion
-
-
+        
         public AbpDbContext(DbContextOptions<AbpDbContext> options)
             : base(options)
         {
@@ -154,12 +115,6 @@ namespace TtWork.ProjectName.EntityFrameworkCore
             builder.ConfigureFeatureManagement();
 
             builder.ConfigurActivity();
-
-            builder.ConfigurLaborUnion();
-
-            builder.ConfigurQA();
-
-            builder.ConfigurTimeline();
 
             builder.ConfigureWorkFlowCore();
         }

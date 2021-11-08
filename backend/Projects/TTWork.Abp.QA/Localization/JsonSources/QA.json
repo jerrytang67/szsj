@@ -1,8 +1,0 @@
-﻿{
-  "culture": "zh-Hans",
-  "texts": {
-    "Permission:QA.Default": "问答系统",
-    "Permission:QA.Admin": "问答系统-管理员权限",
-    "OnlyCanEditSelfEntity": "只能修改自己的内容"
-  }
-}

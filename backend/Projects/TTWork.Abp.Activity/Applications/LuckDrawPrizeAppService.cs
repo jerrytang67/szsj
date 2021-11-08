@@ -18,8 +18,6 @@ using TTWork.Abp.Core;
 using TTWork.Abp.Core.Extensions;
 using TTWork.Abp.Core.Applications.Dtos;
 using TTWork.Abp.Core.Events.Queries;
-using TTWork.Abp.LaborUnion.Definitions;
-using TTWork.Abp.LaborUnion.Events.Commands;
 
 namespace TTWork.Abp.Activity.Applications
 {
@@ -95,47 +93,6 @@ namespace TTWork.Abp.Activity.Applications
 
             return result;
         }
-
-
-        #region 发送能知
-
-        [HttpPost]
-        public async Task SendMessage(LuckDrawPrizeMessageInput input)
-        {
-            var find = await Repository.FirstOrDefaultAsync(x => x.Id == input.PrizeId);
-
-            if (find == null)
-                throw new UserFriendlyException("找不到这个奖品");
-
-
-            var list = await _userPrizeRepository.GetAll().AsNoTracking().Where(x => x.State == EnumClass.UserPrizeState.待领取 && x.PrizeId == input.PrizeId).ToListAsync();
-
-
-            var opendis = Array.Empty<string>();
-            foreach (var userPrize in list.Where(userPrize => userPrize.CreatorUserId.HasValue))
-            {
-                // if (userPrize.CreatorUserId != 4) continue; //测试使用,正式用请注释掉
-                var openid = await _mediator.Send(new UserLoginKeyQuery(userPrize.CreatorUserId!.Value, TTWorkConsts.LoginProvider.WeChatMiniProgram));
-                opendis.AddIfNotContains(openid);
-            }
-
-            if (opendis.Length > 0)
-            {
-                await _mediator.Publish(new MessageSendCommand(MessageType.WechatTemplate, new SendWechatTemplateDetail(
-                    ProjectApp.ZGH_MINI,
-                    opendis,
-                    "dwNvsUYLNMaQLoTVPedPtngxzztKG6GmmVBXBvE5zZc",
-                    new
-                    {
-                        thing2 = new { value = "奖品未领取通知" }, //通知内容
-                        time3 = new { value = $"{DateTime.Now:d}" }, //通知时间
-                        thing4 = new { value = $"{input.Text}" }, //提示说明
-                    }, $"pages/activity/myPrizes"
-                )));
-            }
-        }
-
-        #endregion
     }
 
     public class LuckDrawPrizeMessageInput

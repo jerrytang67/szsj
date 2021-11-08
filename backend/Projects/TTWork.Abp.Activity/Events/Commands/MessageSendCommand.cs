@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Abp.UI;
 using AwsomeApi.WeixinWork.Message;
 using MediatR;
+using TTWork.Abp.Activity.WorkFlows;
 using TTWork.Abp.Core.Extensions;
-using TTWork.Abp.LaborUnion.Definitions;
-using TTWork.Abp.LaborUnion.WorkFlows;
 using TTWork.Abp.WorkFlowCore.Models;
 using WorkflowCore.Interface;
 
-namespace TTWork.Abp.LaborUnion.Events.Commands
+namespace TTWork.Abp.Activity.Events.Commands
 {
     public class MessageSendCommand : INotification
     {

@@ -54,8 +54,7 @@ namespace TTWork.Abp.Activity
                         opt.MapFrom(z => JsonConvert.DeserializeObject<List<string>>(z.CheckCodes, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore }));
                     })
                 ;
-
-
+            
             cfg.CreateMap<LuckDrawPrizeCreateOrUpdateDto, LuckDrawPrize>()
                 .ReverseMap();
 
@@ -65,15 +64,6 @@ namespace TTWork.Abp.Activity
             cfg.CreateMap<UserPrize, UserPrizeDto>()
                 .ReverseMap();
 
-            cfg.CreateMap<VotePlan, VotePlanDto>().ReverseMap();
-            cfg.CreateMap<VotePlan, VotePlanCreateOrUpdateDto>().ReverseMap();
-
-            cfg.CreateMap<VoteItem, VoteItemDto>().ReverseMap();
-
-            cfg.CreateMap<VoteItem, VoteItemCreateOrUpdateDto>()
-                .ReverseMap()
-                .ForMember(x => x.State, opt => opt.Ignore());
-            
             cfg.CreateMap<UserLuckTime, UserLuckTimeDto>();
         }
     }

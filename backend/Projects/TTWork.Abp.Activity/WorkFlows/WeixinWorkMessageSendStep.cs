@@ -7,7 +7,7 @@ using TT.Extensions.Redis;
 using WorkflowCore.Interface;
 using WorkflowCore.Models;
 
-namespace TTWork.Abp.LaborUnion.WorkFlows
+namespace TTWork.Abp.Activity.WorkFlows
 {
     public class WeixinWorkMessageSendStep : StepBodyAsync, ITransientDependency
     {

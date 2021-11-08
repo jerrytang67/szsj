@@ -6,11 +6,7 @@ using Castle.Windsor.MsDependencyInjection;
 using Abp.Dependency;
 using Microsoft.Data.Sqlite;
 using TtWork.ProjectName.EntityFrameworkCore;
-using TtWork.ProjectName.Identity;
-using Microsoft.EntityFrameworkCore.Diagnostics;
 using TTWork.Abp.Core.Identity;
-using TTWork.Abp.Timeline;
-using TTWork.Triggers;
 
 namespace TtWork.ProjectName.Tests.DependencyInjection
 {
@@ -29,7 +25,7 @@ namespace TtWork.ProjectName.Tests.DependencyInjection
                 .UseTriggers(triggerOptions =>
                 {
                     //triggerOptions.AddTrigger<TTWork.Triggers.Timeline.TimelineEventTrigger>();
-                    triggerOptions.AddAssemblyTriggers(typeof(TimelineModule).Assembly);
+                    // triggerOptions.AddAssemblyTriggers(typeof(TimelineModule).Assembly);
                 });
             // .ConfigureWarnings(warnings => warnings.Throw(RelationalEventId.QueryPossibleExceptionWithAggregateOperatorWarning))
 

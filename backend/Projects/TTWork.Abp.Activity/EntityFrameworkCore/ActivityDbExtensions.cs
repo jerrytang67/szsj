@@ -29,28 +29,7 @@ namespace TTWork.Abp.Activity.EntityFrameworkCore
 
             modelBuilder.Entity<UserPrize>(b => { b.ToTable(ActivityConsts.DbTablePrefix + "UserPrizes", ActivityConsts.DbSchema); })
                 ;
-
-            modelBuilder.Entity<VotePlan>(b =>
-            {
-                b.ToTable(ActivityConsts.DbTablePrefix + "VotePlans", ActivityConsts.DbSchema);
-
-                b.Property(x => x.Settings).HasConversion(
-                    v => v.ToString(),
-                    v => JObject.Parse(v)
-                );
-            });
-
-            modelBuilder.Entity<VoteItem>(b =>
-            {
-                b.ToTable(ActivityConsts.DbTablePrefix + "VoteItems", ActivityConsts.DbSchema);
-                b.Property(x => x.Form).HasConversion(
-                    v => v.ToString(),
-                    v => JObject.Parse(v)
-                );
-                b.HasIndex(x => new { x.State, x.VotePlanId });
-            });
-
-
+            
             modelBuilder.Entity<UserLuckTime>(b =>
             {
                 b.ToTable(ActivityConsts.DbTablePrefix + "UserLuckTimes", ActivityConsts.DbSchema);

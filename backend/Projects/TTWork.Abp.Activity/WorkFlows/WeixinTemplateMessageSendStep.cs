@@ -8,7 +8,7 @@ using TTWork.Abp.Core.Extensions;
 using WorkflowCore.Interface;
 using WorkflowCore.Models;
 
-namespace TTWork.Abp.LaborUnion.WorkFlows
+namespace TTWork.Abp.Activity.WorkFlows
 {
     public class WeixinTemplateMessageSendStep : StepBodyAsync, ITransientDependency
     {

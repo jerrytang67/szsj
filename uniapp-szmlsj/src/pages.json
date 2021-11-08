@@ -1,5 +1,6 @@
 {
-	"pages": [{
+	"pages": [
+		{
 			"path": "pages/index/index",
 			"style": {
 				"navigationBarTitleText": "吴江总工会",
@@ -50,20 +51,6 @@
 			}
 		},
 		{
-			"path": "pages/craftsman/index",
-			"style": {
-				"navigationBarTitleText": "吴江红色工匠",
-				"enablePullDownRefresh": true
-			}
-		},
-		{
-			"path": "pages/craftsman/tuijian",
-			"style": {
-				"navigationBarTitleText": "吴江红色工匠",
-				"enablePullDownRefresh": true
-			}
-		},
-		{
 			"path": "pages/index/webView",
 			"style": {
 				"navigationBarTitleText": "webView",
@@ -74,32 +61,6 @@
 			"path": "pages/index/h5",
 			"style": {
 				"navigationBarTitleText": "h5"
-			}
-		},
-		{
-			"path": "pages/craftsman/vote",
-			"style": {
-				"navigationBarTitleText": "投票",
-				"enablePullDownRefresh": true
-			}
-		},
-		{
-			"path": "pages/craftsman/formRecommendSelf",
-			"style": {
-				"navigationBarTitleText": "自荐申报表"
-			}
-		},
-		{
-			"path": "pages/craftsman/formRecommendOther",
-			"style": {
-				"navigationBarTitleText": "推荐人选申报表"
-			}
-		},
-		{
-			"path": "pages/craftsman/myRecommendOther",
-			"style": {
-				"navigationBarTitleText": "推荐记录",
-				"enablePullDownRefresh": true
 			}
 		},
 		{
@@ -137,61 +98,6 @@
 				"navigationBarTitleText": "我的奖品",
 				"enablePullDownRefresh": true
 			}
-		},
-		{
-			"path": "pages/qa/index",
-			"style": {
-				"navigationBarTitleText": "",
-				"navigationStyle": "custom"
-			}
-		},
-		{
-			"path": "pages/timeline/index",
-			"style": {
-				"navigationBarTitleText": "吴江区总工会",
-				"enablePullDownRefresh": true
-			}
-		},
-		{
-			"path": "pages/qa/plan",
-			"style": {
-				"navigationBarTitleText": ""
-			}
-		},
-		{
-			"path": "pages/timeline/event",
-			"style": {
-				"navigationBarTitleText": "",
-				"enablePullDownRefresh": true
-			}
-		},
-		{
-			"path": "pages/timeline/addFile",
-			"style": {
-				"navigationBarTitleText": "上传图片"
-			}
-		},
-		{
-			"path": "pages/qa/rank",
-			"style": {
-				"navigationBarTitleText": "排行榜",
-				"enablePullDownRefresh": true,
-				"navigationStyle": "custom"
-			}
-		},		
-		{
-			"path": "pages/vote/index",
-			"style": {
-				"navigationBarTitleText": "投票活动",
-				"enablePullDownRefresh": true
-				// ,"navigationStyle": "custom"
-			}
-		},
-		{
-			"path": "pages/vote/form",
-			"style": {
-				"navigationBarTitleText": ""
-			}
 		}
 		// PLOP PLACEHOLDER
 	],
@@ -203,7 +109,8 @@
 	"tabBar": {
 		"selectedColor": "#c9171e",
 		"color": "#8B8B8B",
-		"list": [{
+		"list": [
+			{
 				"pagePath": "pages/index/index",
 				"iconPath": "static/images/1.png",
 				"selectedIconPath": "static/images/_1.png",
