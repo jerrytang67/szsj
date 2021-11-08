@@ -1,5 +1,6 @@
 {
-	"pages": [{
+	"pages": [
+		{
 			"path": "pages/index/index",
 			"style": {
 				"navigationBarTitleText": "盛泽目澜市集",
@@ -103,12 +104,13 @@
 	"globalStyle": {
 		"navigationBarTextStyle": "white",
 		"navigationBarTitleText": "uniapp",
-		"navigationBarBackgroundColor": "#c9171e"
+		"navigationBarBackgroundColor": "#10448D"
 	},
 	"tabBar": {
 		"selectedColor": "#c9171e",
 		"color": "#8B8B8B",
-		"list": [{
+		"list": [
+			{
 				"pagePath": "pages/index/index",
 				"iconPath": "static/images/1.png",
 				"selectedIconPath": "static/images/_1.png",
