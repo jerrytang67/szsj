@@ -12,7 +12,7 @@ interface ISettings {
 
 // You can customize below settings :)
 const settings: ISettings = {
-    title: '活动平台',
+    title: '盛泽目澜市集',
     showSettings: true,
     showTagsView: true,
     fixedHeader: false,

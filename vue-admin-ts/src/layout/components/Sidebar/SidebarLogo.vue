@@ -1,11 +1,19 @@
 <template>
-   <div class="sidebar-logo-container flex items-center  justify-start" :class="{'collapse': collapse}">
+   <div
+      class="sidebar-logo-container flex items-center justify-start"
+      :class="{ 'collapse': collapse }"
+   >
       <router-link v-if="collapse" key="collapse" class="flex items-center w-full" to="/">
-         <img src="https://img.wujiangapp.com/wjzgh/2021-04-12/upload_hhoetsv443lbxhv23fgs0lq6tbcoy6ip.jpg" class="w-8 mx-auto rounded-full">
+         <img src="https://cdn.wujiangapp.com/PicGo/202111081508437.jpg" class="w-8 mx-auto" />
       </router-link>
-      <router-link v-else key="expand" class="flex items-center justify-center text-white text-base hover:text-gray-200 zoom-in w-full" to="/">
-         <img src="https://img.wujiangapp.com/wjzgh/2021-04-12/upload_hhoetsv443lbxhv23fgs0lq6tbcoy6ip.jpg" class=" w-8 mr-1  rounded-full">
-         {{ title }}
+      <router-link
+         v-else
+         key="expand"
+         class="flex items-center justify-center text-white text-base hover:text-gray-200 w-full"
+         to="/"
+      >
+         <img src="https://cdn.wujiangapp.com/PicGo/202111090826310.jpg" />
+         <!-- {{ title }} -->
       </router-link>
    </div>
 </template>

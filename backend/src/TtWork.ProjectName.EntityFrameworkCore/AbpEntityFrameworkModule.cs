@@ -12,8 +12,8 @@ namespace TtWork.ProjectName
     [DependsOn(
             typeof(ProjectCoreModule),
             typeof(WorkFlowCoreModule),
-            typeof(AbpZeroCoreEntityFrameworkCoreModule),
-            typeof(ActivityModule)
+            typeof(ActivityModule),
+            typeof(AbpZeroCoreEntityFrameworkCoreModule)
         )
     ]
     public class ProjectEntityFrameworkModule : AbpModule

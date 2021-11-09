@@ -9,10 +9,13 @@
          label-position="left"
       >
          <div class="title-container">
-            <h3 class="title">活动平台</h3>
+            <h3 class="title">
+               <!-- 活动平台 -->
+               <img src="https://cdn.wujiangapp.com/PicGo/202111090826310.jpg" class="rounded-lg"/>
+            </h3>
             <lang-select class="set-language" />
          </div>
-         <div class="title-container">
+         <!-- <div class="title-container">
             <el-dropdown class="tenantDD" @command="switchTenant">
                <span class="el-dropdown-link text-white">
                   租户
@@ -22,7 +25,7 @@
                   <el-dropdown-item command>Host</el-dropdown-item>
                </el-dropdown-menu>
             </el-dropdown>
-         </div>
+         </div> -->
 
          <el-form-item prop="username">
             <span class="svg-container">

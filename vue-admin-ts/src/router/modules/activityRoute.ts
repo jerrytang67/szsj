@@ -6,7 +6,7 @@ import Layout from '@/layout/index.vue'
 const activityRoute: RouteConfig = {
     path: '/activity',
     component: Layout,
-    redirect: '/activity/pointActivityList',
+    redirect: '/activity/luckDrawList',
     name: '活动管理',
     meta: {
         title: '活动管理',
@@ -14,17 +14,16 @@ const activityRoute: RouteConfig = {
         permissions: ['Activity.Default']
     },
     children: [
-        {
-            path: 'pointActivityList',
-            name: 'PointActivityList',
-            component: () => import(/* webpackChunkName: "pointActivityList" */'@/views/activity/pointActivityList.vue'),
-            meta: {
-                title: '积分活动列表',
-                icon: 'app',
-                permissions: ['Activity.Default']
-            }
-        }
-        ,
+        // {
+        //     path: 'pointActivityList',
+        //     name: 'PointActivityList',
+        //     component: () => import(/* webpackChunkName: "pointActivityList" */'@/views/activity/pointActivityList.vue'),
+        //     meta: {
+        //         title: '积分活动列表',
+        //         icon: 'app',
+        //         permissions: ['Activity.Default']
+        //     }
+        // },
         {
             path: 'luckDrawList',
             name: 'LuckDrawList',

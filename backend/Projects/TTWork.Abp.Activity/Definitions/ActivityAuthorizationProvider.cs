@@ -12,8 +12,8 @@ namespace TTWork.Abp.Activity.Definitions
             var pages = context.GetPermissionOrNull(AppPermissions.Pages.Default);
             if (pages == null) return;
 
-            var riddle = pages.CreateChildPermission(ActivityPermissions.Default, L($"Permission:{ActivityPermissions.Default}"));
-            riddle.CreateChildPermission(ActivityPermissions.Admin, L($"Permission:{ActivityPermissions.Admin}"));
+            var activity = pages.CreateChildPermission(ActivityPermissions.Default, L($"Permission:{ActivityPermissions.Default}"));
+            activity.CreateChildPermission(ActivityPermissions.Admin, L($"Permission:{ActivityPermissions.Admin}"));
         }
 
         private static ILocalizableString L(string name)
