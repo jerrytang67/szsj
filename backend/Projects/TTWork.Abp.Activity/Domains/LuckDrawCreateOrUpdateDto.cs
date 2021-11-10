@@ -9,6 +9,8 @@ namespace TTWork.Abp.Activity.Domains
     /// </summary>
     public class LuckDrawCreateOrUpdateDto : EntityDto<long>
     {
+        public string TitleImageUrl { get; set; }
+
         public string Title { get; set; }
 
         public string SubTitle { get; set; }

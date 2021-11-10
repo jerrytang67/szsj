@@ -44,13 +44,6 @@
 			}
 		},
 		{
-			"path": "pages/cms/category1",
-			"style": {
-				"navigationBarTitleText": "寻访动态",
-				"enablePullDownRefresh": true
-			}
-		},
-		{
 			"path": "pages/index/webView",
 			"style": {
 				"navigationBarTitleText": "webView",
@@ -107,7 +100,7 @@
 		"navigationBarBackgroundColor": "#10448D"
 	},
 	"tabBar": {
-		"selectedColor": "#c9171e",
+		"selectedColor": "#10448D",
 		"color": "#8B8B8B",
 		"list": [
 			{

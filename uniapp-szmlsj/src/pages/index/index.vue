@@ -4,23 +4,36 @@
       <!-- #ifdef MP-WEIXIN-->
       <official-account></official-account>
       <!-- #endif -->
-      <view class="flex p-4 bg-white">
-         <view
-            v-for="(x ,index) in list1"
-            :key="index"
-            class="categoryItem flex flex-col items-center"
-            @click="cmsGo(x)"
-         >
-            <img :src="x.titleImageUrl" class="w-10 h-10 object-contain shadow-lg rounded-full" />
-            <view class="mt-2 text-xs text-gray-800">{{ x.title }}</view>
-         </view>
-      </view>
-      <view class="card py-4">
+      <view class="card py-4" v-if="luckDrawList && luckDrawList.length">
          <view class="flex justify-between items-center">
             <view class="font-bold text-lg border-red-700 border-solid border-0 border-l-4">
                <text class="ml-2 text-red-700">线上</text>活动
             </view>
-            <view class="flex items-center text-gray-400" @tap="cmsMore(9)">
+            <!-- <view class="flex items-center text-gray-400" @tap="cmsMore(9)">
+               更多
+               <view class="icon icon-read-more ml-1"></view>
+            </view> -->
+         </view>
+         <view
+            v-for="(v,index) in luckDrawList"
+            :key="index"
+            class="flex flex-col zoom-in items-center mt-4"
+            :class="{ 'divide-y': index > 0 }"
+            @tap="navTo(`/pages/activity/luckDraw?id=${v.id}`)"
+         >
+            <image class="h-28" :src="v.titleImageUrl" mode="aspectFill" />
+            <view class="flex items-center mt-2">
+               <view class="overflow-hidden text-sm">{{ v.title }}</view>
+            </view>
+         </view>
+      </view>
+
+      <view class="card py-4" v-if="list2 && list2.length">
+         <view class="flex justify-between items-center">
+            <view class="font-bold text-lg border-red-700 border-solid border-0 border-l-4">
+               <text class="ml-2 text-red-700">市集</text>动态
+            </view>
+            <view class="flex items-center text-gray-400" @tap="cmsMore(1)">
                更多
                <view class="icon icon-read-more ml-1"></view>
             </view>
@@ -61,6 +74,31 @@ export default class About extends BaseView {
    isLoading: boolean = false;
    tabCurrentIndex = 0;
    activeIndex = 0;
+
+   luckDrawList: any[] = []
+   list2: any[] = []
+
+   async loadData() {
+
+      api.getAllLuckDraw({}).then((res: any) => {
+         this.luckDrawList = res.items!;
+      })
+
+      // this.isLoading = true;
+      api.getAllCmsContent({ pid: 1, sorting: "sort desc" }).then(
+         (res: any) => {
+            this.list2 = res.items!;
+         }
+      );
+      // api.getAllCmsContent({
+      //    pid: 9,
+      //    maxResultCount: 5,
+      //    sorting: "creationTime desc",
+      // }).then((res: any) => {
+      //    this.list2 = res.items!;
+      // });
+   }
+
 
    onLoad(query: any) {
       console.log("query:", query);
@@ -120,31 +158,7 @@ export default class About extends BaseView {
       };
    }
 
-   topImg: any = null;
 
-   list1: any[] = [];
-   list2: any[] = [];
-
-   created() {
-      this.loadData();
-   }
-
-   //获取订单列表
-   async loadData() {
-      // this.isLoading = true;
-      api.getAllCmsContent({ pid: 8, sorting: "sort desc" }).then(
-         (res: any) => {
-            this.list1 = res.items!;
-         }
-      );
-      api.getAllCmsContent({
-         pid: 9,
-         maxResultCount: 5,
-         sorting: "creationTime desc",
-      }).then((res: any) => {
-         this.list2 = res.items!;
-      });
-   }
 }
 </script>
 <style lang="scss">

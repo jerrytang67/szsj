@@ -9,13 +9,28 @@
             <rich-text :nodes="item.settings.topHtml" v-if="item.settings.topHtml"></rich-text>
          </view>
          <view class="flex flex-col items-center">
-            <view>
+            <!-- <view>
                <button
                   type="button"
-                  class="btn btn-red zoom-in" 
+                  class="btn btn-red zoom-in"
                   @tap="draw"
                >{{ item.settings.drawButtonText }}</button>
-            </view>
+            </view>-->
+
+            <!-- 大转盘抽奖 -->
+            <LuckyWheel
+               ref="luckyWheel"
+               width="600rpx"
+               height="600rpx"
+               :blocks="blocks"
+               :prizes="prizes"
+               :buttons="buttons"
+               :defaultStyle="defaultStyle"
+               :defaultConfig="defaultConfig"
+               @start="startCallBack"
+               @end="endCallBack"
+            />
+
             <view v-if="item.type === 'Points'">
                <view class="mt-4">
                   每次抽奖扣除
@@ -79,41 +94,112 @@
          </view>
          <view class="h-16"></view>
       </view>
-      <view class="t-modal" :class="{ 'onshow': modalShow }">
-         <view class="dialog" style="background:none;">
-            <view class="flex items-center justify-center">
-               <view
-                  class="relative"
-                  style="height:559rpx;width:521rpx;background-size: contain; background-repeat: no-repeat;"
-                  :style="{ backgroundImage: `url(https://img.wujiangapp.com/wjzgh/2021-04-29/upload_qu0cyuqa7wkdz1et9v3xfr4plszttyxh.png)` }"
-               >
-                  <view style="margin-top:190rpx;color:#F3840B;" class="text-center">
-                     <img :src="prize.imageUrl" class="h-32 w-32 rounded-lg shadow" />
-                  </view>
-                  <view
-                     class="mt-2 text-sm text-red-500 font-thin text-center"
-                  >{{ prize.name }} x {{ prize.count }}</view>
-               </view>
-            </view>
-            <view class="close" @tap="modalShow = false">
-               <text class="icon icon-close"></text>
-            </view>
-         </view>
-      </view>
    </tui-page>
 </template>
 
 <script lang="ts">
+import LuckyWheel from '@lucky-canvas/uni/lucky-wheel.vue' // 大转盘
 import { UserModule } from "@/store/modules/user";
 import api from "@/utils/api";
 import { Component, Vue, Prop, Watch, Ref } from "vue-property-decorator";
 import { BaseView } from "../baseView";
 
-@Component
+@Component({
+   components: {
+      LuckyWheel,
+   },
+})
 export default class LuckDraw extends BaseView {
    needLogin = true;
    id = 0;
    item: any = { id: 0, settings: {} };
+
+   blocks = [{ padding: '10px', background: '#D64737' }]
+   prizes = [
+      { id: 1, title: '一等奖', background: '#f9e3bb', fonts: [{ text: '一等奖', top: '25%' }] },
+      { id: 2, title: '二等奖', background: '#f8d384', fonts: [{ text: '二等奖', top: '25%' }] },
+      { id: 3, title: '三等奖', background: '#f9e3bb', fonts: [{ text: '三等奖', top: '25%' }] },
+      { id: 4, title: '幸运奖', background: '#f8d384', fonts: [{ text: '幸运奖', top: '25%' }] },
+      { title: '谢谢参与', background: '#f9e3bb', fonts: [{ text: '谢谢参与', top: '25%' }] },
+      { title: '谢谢参与', background: '#f8d384', fonts: [{ text: '谢谢参与', top: '25%' }] },
+
+   ]
+   buttons = [
+      { radius: '50px', background: '#d64737' },
+      { radius: '45px', background: '#fff' },
+      { radius: '41px', background: '#f6c66f', pointer: true },
+      {
+         radius: '35px', background: '#ffdea0',
+         fonts: [{ text: '开始\n抽奖', fontSize: '18px', top: -18 }]
+      }
+   ]
+   defaultStyle = {
+      fontColor: '#d64737',
+      fontSize: '14px'
+   }
+   defaultConfig = {
+      gutter: '5px'
+   }
+
+   prizeRes: any = null;
+   running = false;
+
+   shareFrom = 0;
+
+   startCallBack() {
+      if (!this.running) {
+         this.running = true;
+         let index = -1;
+         let luckyWheel: any = this.$refs['luckyWheel']
+         api.luckDraw({ id: this.id, shareFrom: this.shareFrom, }).then((res: any) => {
+            // 先开始旋转
+            luckyWheel.play()
+            this.item.luckTimes--;
+            if (res) {
+               this.prizeRes = res;
+               index = this.prizes.findIndex(x => x.id == res.prizeId)
+            }
+            else {
+               index = this.prizes.length - 1
+            }
+            luckyWheel.stop(index)
+         }, () => {
+            this.running = false;
+         });
+      }
+   }
+   // 抽奖结束触发回调
+   endCallBack(e: any) {
+      this.running = false;
+      // 奖品详情
+      console.log(e)
+      if (this.prizeRes) {
+         this.ring();
+         uni.showModal({
+            title: '恭喜中奖',
+            content: `恭喜抽中 ${this.prizeRes.name}`,
+            cancelText: '关闭',
+            confirmText: '中奖记录',
+            success: function (res) {
+               if (res.confirm) {
+                  uni.navigateTo({
+                     url: `/pages/activity/myPrizes`
+                  })
+               }
+            }
+         });
+
+      }
+      else {
+         uni.showModal({
+            content: `谢谢参与`,
+            showCancel: false,
+            confirmText: '关闭',
+         });
+      }
+      this.fetchData();
+   }
+
 
    get currentUser() {
       return UserModule.getUser;
@@ -134,7 +220,9 @@ export default class LuckDraw extends BaseView {
          }
       }
 
-      // await this.fetchData();
+      if (query.uid) {
+         this.shareFrom = query.uid;
+      }
    }
 
    onShareAppMessage(option: any) {
@@ -164,9 +252,12 @@ export default class LuckDraw extends BaseView {
 
    userPrizes: any[] = [];
    async fetchData() {
+      this.prizeRes = null;
       await api.getLuckDraw({ id: this.id }).then((res: any) => {
          this.item = res;
-         this.setShareText();
+         setTimeout(() => {
+            this.setShareText();
+         }, 1000);
          uni.setNavigationBarTitle({ title: res.title });
       });
 
@@ -177,34 +268,14 @@ export default class LuckDraw extends BaseView {
    }
 
    async setShareText() {
-      // let uid = await uni.getStorageSync("userid");
+      let uid = await uni.getStorageSync("userid");
       await uni.setStorageSync("shareData", {
          title: `${this.item.title}`,
-         page: `/pages/activity/luckDraw?id=${this.item.id}`,
-         query: `id=${this.item.id}`,
+         page: `/pages/activity/luckDraw?id=${this.item.id}&uid=${uid || ""}`,
+         query: `id=${this.item.id}&uid=${uid || ""}`,
       });
    }
 
-   modalShow = false;
-
-   prize: any = {};
-
-   draw() {
-      api.luckDraw({ id: this.id }).then((res: any) => {
-         if (!res) {
-            uni.showModal({
-               content: this.item.settings.drawFailText || "很遗憾,没有中奖",
-               showCancel: false,
-            });
-         } else if (res.count) {
-            this.ring();
-            this.modalShow = true;
-            this.prize = res;
-         }
-
-         this.fetchData();
-      });
-   }
 
    ring() {
       const innerAudioContext = uni.createInnerAudioContext();

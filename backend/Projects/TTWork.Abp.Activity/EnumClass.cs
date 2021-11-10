@@ -35,8 +35,7 @@ namespace TTWork.Abp.Activity
             Qr = 0, //上门核销
             Express = 1 //快递
         }
-
-
+        
         public enum LuckDrawType
         {
             Default = 0,

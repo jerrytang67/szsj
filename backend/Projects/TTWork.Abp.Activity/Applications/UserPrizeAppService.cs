@@ -153,7 +153,8 @@ namespace TTWork.Abp.Activity.Applications
             {
                 foreach (var dto in result.Items)
                 {
-                    dto.PhoneNumber = Regex.Replace(dto.PhoneNumber, "(\\d{3})\\d{5}(\\d{3})", "$1*****$2");
+                    if (!dto.PhoneNumber.IsNullOrEmptyOrWhiteSpace())
+                        dto.PhoneNumber = Regex.Replace(dto.PhoneNumber, "(\\d{3})\\d{5}(\\d{3})", "$1*****$2");
                 }
             }
 

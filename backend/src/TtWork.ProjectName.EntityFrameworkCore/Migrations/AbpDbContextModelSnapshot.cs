@@ -1412,6 +1412,10 @@ namespace TtWork.ProjectName.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
+                    b.Property<string>("TitleImageUrl")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
                     b.Property<int>("Type")
                         .HasColumnType("int");
 

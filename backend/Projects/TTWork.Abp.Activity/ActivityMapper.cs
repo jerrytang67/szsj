@@ -33,6 +33,9 @@ namespace TTWork.Abp.Activity
             cfg.CreateMap<PointActivityUserLog, PointActivityUserLogDto>();
 
 
+            cfg.CreateMap<LuckDraw, LuckDrawBaseDto>();
+
+
             cfg.CreateMap<LuckDrawDto, LuckDraw>()
                 .ForMember(x => x.Settings, opt => opt.MapFrom(z => JsonConvert.SerializeObject(z.Settings, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore })))
                 .ReverseMap()
@@ -54,7 +57,7 @@ namespace TTWork.Abp.Activity
                         opt.MapFrom(z => JsonConvert.DeserializeObject<List<string>>(z.CheckCodes, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore }));
                     })
                 ;
-            
+
             cfg.CreateMap<LuckDrawPrizeCreateOrUpdateDto, LuckDrawPrize>()
                 .ReverseMap();
 

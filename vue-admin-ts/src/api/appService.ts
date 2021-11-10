@@ -1442,6 +1442,59 @@ export class LuckDrawService {
   /**
    *
    */
+  static getAllPublic(
+    params: {
+      /**  */
+      organizationUnitId?: number;
+      /**  */
+      status?: number;
+      /**  */
+      userId?: number;
+      /**  */
+      pid?: number;
+      /**  */
+      keyword?: string;
+      /**  */
+      isActive?: boolean;
+      /**  */
+      sorting?: string;
+      /**  */
+      from?: string;
+      /**  */
+      to?: string;
+      /**  */
+      skipCount?: number;
+      /**  */
+      maxResultCount?: number;
+    } = {} as any,
+    options: IRequestOptions = {}
+  ): Promise<LuckDrawBaseDtoPagedResultDto> {
+    return new Promise((resolve, reject) => {
+      let url = '/api/services/Activity/LuckDraw/GetAllPublic';
+
+      const configs: IRequestConfig = getConfigs('get', 'application/json', url, options);
+      configs.params = {
+        OrganizationUnitId: params['organizationUnitId'],
+        Status: params['status'],
+        UserId: params['userId'],
+        Pid: params['pid'],
+        Keyword: params['keyword'],
+        IsActive: params['isActive'],
+        Sorting: params['sorting'],
+        From: params['from'],
+        To: params['to'],
+        SkipCount: params['skipCount'],
+        MaxResultCount: params['maxResultCount']
+      };
+      let data = null;
+
+      configs.data = data;
+      axios(configs, resolve, reject);
+    });
+  }
+  /**
+   *
+   */
   static getForEdit(
     params: {
       /**  */
@@ -6635,7 +6688,32 @@ export interface Location {
   lng?: number;
 }
 
+export interface LuckDrawBaseDto {
+  /**  */
+  titleImageUrl?: string;
+
+  /**  */
+  title?: string;
+
+  /**  */
+  type?: LuckDrawType;
+
+  /**  */
+  id?: number;
+}
+
+export interface LuckDrawBaseDtoPagedResultDto {
+  /**  */
+  totalCount?: number;
+
+  /**  */
+  items?: LuckDrawBaseDto[];
+}
+
 export interface LuckDrawCreateOrUpdateDto {
+  /**  */
+  titleImageUrl?: string;
+
   /**  */
   title?: string;
 
@@ -6694,6 +6772,9 @@ export interface LuckDrawCreateOrUpdateDtoGetForEditOutput {
 }
 
 export interface LuckDrawDto {
+  /**  */
+  titleImageUrl?: string;
+
   /**  */
   title?: string;
 

@@ -5,9 +5,25 @@
       @close="cancel"
       :close-on-click-modal="false"
       width="80%"
-      
    >
       <el-form ref="dataForm" :rules="roleRule" :model="form" label-position="top">
+         <el-form-item label="标题图片" prop="titleImageUrl">
+            <span slot="label">标题图片&nbsp;&nbsp;</span>
+            <tt-upload class="h-40" v-model="form.titleImageUrl" :fileSize="1024" drag>
+               <template v-if="form.titleImageUrl">
+                  <img :src="form.titleImageUrl" class=" h-40 object-fill" />
+               </template>
+               <template v-else>
+                  <i class="el-icon-upload"></i>
+                  <div class="el-upload__text">
+                     将文件拖到此处，或
+                     <em>点击上传</em>
+                  </div>
+                  <div class="el-upload__tip" slot="tip">建议尺寸：750 x 320,600KB以内</div>
+               </template>
+            </tt-upload>
+            <!-- <el-input hidden v-model="form.imagePath" /> -->
+         </el-form-item>
          <el-row :gutter="20">
             <el-col :span="12">
                <el-form-item label="标题" prop="title" required>

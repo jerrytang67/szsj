@@ -54,9 +54,17 @@ namespace TTWork.Abp.Activity.Applications
 
         [HttpGet]
         [AbpAuthorize(AppPermissions.Pages.Default)]
-        public async Task<UserPrizeDto> LuckDraw(long id)
+        public async Task<UserPrizeDto> LuckDraw(LuckDrawRequestDto input)
         {
-            var activity = await GetEntityByIdAsync(id);
+            var activity = await GetEntityByIdAsync(input.Id);
+
+
+            long shareFrom;
+            long.TryParse(input.ShareFrom, out shareFrom);
+            if (shareFrom > 0 && AbpSession.UserId!.Value == shareFrom)
+            {
+                shareFrom = 0;
+            }
 
             if (activity == null)
                 throw new UserFriendlyException(L("notfind"));
@@ -78,7 +86,7 @@ namespace TTWork.Abp.Activity.Applications
 
             #region 设置的中奖机率
 
-            var keyy = $"WJZGH:LuckDraw:{id}:中奖几率";
+            var keyy = $"WJZGH:LuckDraw:{input.Id}:中奖几率";
             var 中奖几率Cache = await _redisClient.Database.StringGetAsync(keyy);
             if (!中奖几率Cache.HasValue)
             {
@@ -115,15 +123,36 @@ namespace TTWork.Abp.Activity.Applications
                         currentUser.Jf,
                         currentUser.Jf - activity.Price!.Value,
                         EnumClass.UserPointEventType.Activity,
-                        id.ToString(),
+                        input.Id.ToString(),
                         activity.Title));
                 currentUser.Jf -= activity.Price!.Value;
                 await CurrentUnitOfWork.SaveChangesAsync();
             }
             else if (activity.Type == EnumClass.LuckDrawType.UserLuckyTimes)
             {
+                #region 分享加次数
+
+                if (shareFrom > 0 && !await _userLuckTimeRepository.GetAll().AsNoTracking()
+                    .AnyAsync(x => x.UserId == shareFrom
+                                   && x.LuckDrawId == activity.Id
+                                   && x.ShareFrom.HasValue
+                                   && x.CreationTime >= DateTime.Today
+                    ))
+                {
+                    await _userLuckTimeRepository.InsertAsync(new UserLuckTime()
+                    {
+                        UserId = shareFrom, LuckDrawId = activity.Id,
+                        CreationTime = DateTime.Now,
+                        CreatorUserId = shareFrom,
+                        ShareFrom = AbpSession.UserId
+                    });
+                    await CurrentUnitOfWork.SaveChangesAsync();
+                }
+
+                #endregion
+
                 var times = await _userLuckTimeRepository.GetAll().AsNoTracking()
-                    .Where(x => x.CreatorUserId == AbpSession.UserId.Value
+                    .Where(x => x.UserId == AbpSession.UserId.Value
                                 && x.LuckDrawId == activity.Id
                                 && x.Status == EnumClass.UserLuckTimeStatus.未使用).CountAsync();
 
@@ -193,12 +222,13 @@ namespace TTWork.Abp.Activity.Applications
             };
 
             await _userPrizeRepository.InsertAsync(prize);
+            await CurrentUnitOfWork.SaveChangesAsync();
 
             activity.LuckDrawPrizes.FirstOrDefault(x => x.Id == 中奖奖品.Id)!.StockCount--;
             activity.PrizeCount = Convert.ToInt32(await _redisClient.Database.ListLengthAsync(PRIZEKEY));
 
             if (userLuckTime is { Status: EnumClass.UserLuckTimeStatus.已使用 })
-                userLuckTime.UserPrizeId = 中奖奖品.LuckDrawId;
+                userLuckTime.UserPrizeId = prize.Id;
 
             await CurrentUnitOfWork.SaveChangesAsync();
 
@@ -210,25 +240,33 @@ namespace TTWork.Abp.Activity.Applications
         {
             var result = await base.GetAsync(input);
 
-            if (AbpSession.UserId.HasValue)
+            if (AbpSession.UserId.HasValue && result.Type == EnumClass.LuckDrawType.UserLuckyTimes && DateTime.Now >= result.DatetimeStart.Date && DateTime.Now <= result.DatetimeEnd)
             {
+                // 如果当天没有送过一次抽奖机会
+                if (!await _userLuckTimeRepository.GetAll().AsNoTracking().AnyAsync(x => x.UserId == AbpSession.UserId.Value
+                                                                                         && x.LuckDrawId == result.Id
+                                                                                         && x.ShareFrom == null
+                                                                                         && x.CreationTime > DateTime.Today)
+                )
+                {
+                    await _userLuckTimeRepository.InsertAsync(new UserLuckTime
+                    {
+                        UserId = AbpSession.UserId.Value,
+                        LuckDrawId = result.Id
+                    });
+                    await CurrentUnitOfWork.SaveChangesAsync();
+                }
+
                 var times = await _userLuckTimeRepository.GetAll().AsNoTracking()
                     .Where(x => x.CreatorUserId == AbpSession.UserId.Value
                                 && x.LuckDrawId == result.Id
                                 && x.Status == EnumClass.UserLuckTimeStatus.未使用).CountAsync();
+
                 result.LuckTimes = times;
             }
 
+
             return result;
-        }
-
-
-        protected override IQueryable<LuckDraw> CreateFilteredQuery(AppResultRequestDto input)
-        {
-            return base.CreateFilteredQuery(input)
-                    .Include(x => x.LuckDrawPrizes)
-                    .WhereIf(!input.Keyword.IsNullOrEmptyOrWhiteSpace(), x => x.Title.Contains(input.Keyword))
-                ;
         }
 
         public override async Task DeleteAsync(EntityDto<long> input)
@@ -250,6 +288,20 @@ namespace TTWork.Abp.Activity.Applications
             return Repository.GetAll().Include(x => x.LuckDrawPrizes).FirstOrDefaultAsync(x => x.Id == id);
         }
 
+
+        public async Task<PagedResultDto<LuckDrawBaseDto>> GetAllPublicAsync(AppResultRequestDto input)
+        {
+            input.Status = 1;
+            var query = CreateFilteredQuery(input);
+            int totalCount = await AsyncQueryableExecuter.CountAsync(query);
+            query = ApplySorting(query, input);
+            query = ApplyPaging(query, input);
+
+            var pagedResultDto = await query.ToListAsync();
+
+            return new PagedResultDto<LuckDrawBaseDto>(totalCount, ObjectMapper.Map<List<LuckDrawBaseDto>>(pagedResultDto));
+        }
+
         public override async Task<GetForEditOutput<LuckDrawCreateOrUpdateDto>> GetForEdit(EntityDto<long> input)
         {
             var result = await base.GetForEdit(input);
@@ -257,6 +309,16 @@ namespace TTWork.Abp.Activity.Applications
             result.Schema["Type"] = typeof(EnumClass.LuckDrawType).GetEnumSelection();
             result.Schema["PickupWay"] = typeof(EnumClass.PickupWay).GetEnumSelection();
             return result;
+        }
+
+
+        protected override IQueryable<LuckDraw> CreateFilteredQuery(AppResultRequestDto input)
+        {
+            return base.CreateFilteredQuery(input)
+                    .Include(x => x.LuckDrawPrizes)
+                    .WhereIf(input.Status.HasValue, x => x.State == input.Status)
+                    .WhereIf(!input.Keyword.IsNullOrEmptyOrWhiteSpace(), x => x.Title.Contains(input.Keyword))
+                ;
         }
     }
 }

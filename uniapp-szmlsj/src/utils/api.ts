@@ -72,19 +72,6 @@ export default {
     getCmsCategory: (data: any) => request("GET", `/api/services/app/CmsCategory/Get`, data),
     getCmsContent: (data: any) => request("GET", `/api/services/app/CmsContent/Get`, data),
 
-
-    //craftsman
-    getEditCraftsmanRecommand: (data: any) => request("GET", `/api/services/LaborUnion/CraftsmanRecommend/GetForEdit`, data),
-    createCraftsmanRecommand: (data: any) => request("POST", `/api/services/LaborUnion/CraftsmanRecommend/Create`, data),
-    updateCraftsmanRecommand: (data: any) => request("PUT", `/api/services/LaborUnion/CraftsmanRecommend/Update`, data),
-    getAllMyCraftsmanRecommand: (data: any) => request("GET", `/api/services/LaborUnion/CraftsmanRecommend/GetAllMy`, data),
-    getRecommendRedPacket: (data: any) => request("GET", `/api/services/LaborUnion/CraftsmanRecommend/GetRedpacket`, data),
-    getCraftsmanRedPacket: (data: any) => request("GET", `/api/services/LaborUnion/Craftsman/GetRedpacket`, data),
-
-    getEditCraftsman: (data: any) => request("GET", `/api/services/LaborUnion/Craftsman/GetForEdit`, data),
-    createCraftsman: (data: any) => request("POST", `/api/services/LaborUnion/Craftsman/Create`, data),
-    updateCraftsman: (data: any) => request("PUT", `/api/services/LaborUnion/Craftsman/Update`, data),
-
     //activity
     getPointActivity: (data: any) => request("GET", `/api/services/Activity/PointActivity/Get`, data),
     getPoint: (data: any) => request("POST", `/api/services/Activity/PointActivity/PostGetPoint`, data),
@@ -93,6 +80,7 @@ export default {
     getMyLogs: (data: any) => request("GET", `/api/services/Activity/UserPointLog/GetMyLogs`, data),
 
     //luckDraw
+    getAllLuckDraw: (data: any) => request("GET", `/api/services/Activity/LuckDraw/GetAllPublic`, data),
     getLuckDraw: (data: any) => request("GET", `/api/services/Activity/LuckDraw/Get`, data),
     luckDraw: (data: any) => request("GET", `/api/services/Activity/LuckDraw/LuckDraw`, data),
 
@@ -100,7 +88,7 @@ export default {
     getAllUserPrize: (data: any) => request("GET", `/api/services/Activity/UserPrize/GetAll`, data),
     getAllMyUserPrize: (data: any) => request("GET", `/api/services/Activity/UserPrize/GetAllMy`, data),
     getCheckQr: (data: any) => request("GET", `/api/services/Activity/UserPrize/GetCheckQr`, data),
-    userPrizeSetExpress :(data: any) => request("POST", `/api/services/Activity/UserPrize/SetExpress`, data),
+    userPrizeSetExpress: (data: any) => request("POST", `/api/services/Activity/UserPrize/SetExpress`, data),
 
     userPriceCheck: (data: any) => request("POST", `/api/services/Activity/UserPrize/Check`, data),
 

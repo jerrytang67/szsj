@@ -22,6 +22,7 @@
     "@dcloudio/uni-quickapp-native": "^2.0.0-32920211029004",
     "@dcloudio/uni-quickapp-webview": "^2.0.0-32920211029004",
     "@dcloudio/uni-stat": "^2.0.0-32920211029004",
+    "@lucky-canvas/uni": "^0.0.1",
     "@vue/shared": "^3.0.0",
     "autoprefixer": "^9.8.6",
     "core-js": "^3.6.5",

@@ -95,6 +95,8 @@ export default class PointActivity extends BaseView {
       if (query.uid) {
          this.shareFrom = query.uid;
       }
+
+      
       await this.fetchData();
    }
 

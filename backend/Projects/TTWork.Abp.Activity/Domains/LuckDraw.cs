@@ -6,9 +6,9 @@ using Abp.Domain.Entities.Auditing;
 
 namespace TTWork.Abp.Activity.Domains
 {
-    
-    public class LuckDraw : FullAuditedAggregateRoot<long>, IMustHaveTenant
+    public class LuckDraw : FullAuditedAggregateRoot<long>, IMustHaveTenant, ILuckDrawBase
     {
+        [StringLength(256)] public string TitleImageUrl { get; set; }
         [StringLength(256)] public string Title { get; set; }
 
         [StringLength(512)] public string SubTitle { get; set; }

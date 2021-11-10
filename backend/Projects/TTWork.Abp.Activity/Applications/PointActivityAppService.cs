@@ -89,8 +89,7 @@ namespace TTWork.Abp.Activity.Applications
             {
                 throw new UserFriendlyException("今天已经不能再抽奖了");
             }
-
-
+            
             var shareCount = await _pointActivityUserLogRepositiry.GetAll().AsNoTracking()
                 .CountAsync(x => x.CreationTime > DateTime.Today &&
                                  x.ActivityId == input.ActivityId &&
@@ -138,23 +137,23 @@ namespace TTWork.Abp.Activity.Applications
 
                     if (!shared.HasValue)
                     {
-                        var openid = await _mediator.Send(new UserLoginKeyQuery(shareFrom, TTWorkConsts.LoginProvider.WeChatMiniProgram));
-                        if (!openid.IsNullOrEmptyOrWhiteSpace())
-                        {
-                            await _mediator.Publish(new MessageSendCommand(MessageType.WechatTemplate, new SendWechatTemplateDetail(
-                                ProjectApp.SZMLSJ_MINI,
-                                new[] { openid },
-                                "dwNvsUYLNMaQLoTVPedPtngxzztKG6GmmVBXBvE5zZc",
-                                new
-                                {
-                                    thing2 = new { value = "分享成功" }, //通知内容
-                                    time3 = new { value = $"{DateTime.Now:d}" }, //通知时间
-                                    thing4 = new { value = $"点击消息进入活动" }, //提示说明
-                                }, $"pages/activity/pointActivity?id={activity.Id}"
-                            )));
-
-                            await _redisClient.Database.HashSetAsync(key, shareFrom, $"{DateTime.Now}");
-                        }
+                        // var openid = await _mediator.Send(new UserLoginKeyQuery(shareFrom, TTWorkConsts.LoginProvider.WeChatMiniProgram));
+                        // if (!openid.IsNullOrEmptyOrWhiteSpace())
+                        // {
+                        //     await _mediator.Publish(new MessageSendCommand(MessageType.WechatTemplate, new SendWechatTemplateDetail(
+                        //         ProjectApp.SZMLSJ_MINI,
+                        //         new[] { openid },
+                        //         "dwNvsUYLNMaQLoTVPedPtngxzztKG6GmmVBXBvE5zZc",
+                        //         new
+                        //         {
+                        //             thing2 = new { value = "分享成功" }, //通知内容
+                        //             time3 = new { value = $"{DateTime.Now:d}" }, //通知时间
+                        //             thing4 = new { value = $"点击消息进入活动" }, //提示说明
+                        //         }, $"pages/activity/pointActivity?id={activity.Id}"
+                        //     )));
+                        //
+                        //     await _redisClient.Database.HashSetAsync(key, shareFrom, $"{DateTime.Now}");
+                        // }
                     }
                 }
             }
