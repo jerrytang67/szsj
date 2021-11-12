@@ -4,6 +4,7 @@
       <!-- #ifdef MP-WEIXIN-->
       <official-account></official-account>
       <!-- #endif -->
+      <tongji></tongji>
       <view class="card py-4" v-if="luckDrawList && luckDrawList.length">
          <view class="flex justify-between items-center">
             <view class="font-bold text-lg border-red-700 border-solid border-0 border-l-4">
@@ -12,7 +13,7 @@
             <!-- <view class="flex items-center text-gray-400" @tap="cmsMore(9)">
                更多
                <view class="icon icon-read-more ml-1"></view>
-            </view> -->
+            </view>-->
          </view>
          <view
             v-for="(v,index) in luckDrawList"
@@ -59,6 +60,12 @@
             </view>
          </view>
       </view>
+
+      <jiance></jiance>
+
+
+      <view class="h-24"></view>
+
    </tui-page>
 </template>
 <script lang="ts">
@@ -171,4 +178,5 @@ export default class About extends BaseView {
 .categoryItem {
    @apply w-1/5;
 }
-</style>
+
+</style

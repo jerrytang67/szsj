@@ -2,7 +2,7 @@
   font-family: "iconfont"; /* project id 2295296 */
   font-weight: normal;
   font-style: normal;
-  src: url("//at.alicdn.com/t/font_2295296_yyu88bipkds.ttf?t=1632964835360");
+  src: url("//at.alicdn.com/t/font_2295296_v27uokt8vd.ttf?t=1636683736369");
 }
 
 .icon {
@@ -60,6 +60,11 @@
 .icon-read-more:before {
   content: "\e60d";
 }
+
+.icon-shuaxin:before {
+  content: "\e60f";
+}
+
 .icon-vote:before {
   content: "\e628";
 }

@@ -21,11 +21,8 @@ namespace AwsomeApi.DingTalk
         public async Task<object> Robot_Send(string access_token, string secret, object data)
         {
             var url = signUrl($"https://oapi.dingtalk.com/robot/send?access_token={access_token}", secret);
-
             var response = Response();
-
             return JsonSerializer.Deserialize<object>(await response.Result.Content.ReadAsStringAsync());
-
             Task<HttpResponseMessage> Response()
             {
                 var content = new StringContent(JsonSerializer.Serialize(data), Encoding.UTF8, "application/json");

@@ -2,7 +2,7 @@ const errorPrompt = (err: any) => {
     console.log("err", err);
     if (err.validationErrors && err.validationErrors.length) {
         let info = err.validationErrors.reduce(
-            (c:any, o:any) => (c += `${o.message}\n`),
+            (c: any, o: any) => (c += `${o.message}\n`),
             ""
         );
         uni.showModal({
@@ -33,19 +33,25 @@ const httpsPromisify = (fn: Function) => {
             }: any) => {
                 uni.hideLoading();
                 uni.hideNavigationBarLoading();
-                if (data.success) {
-                    resolve(data.result);
-                } else {
-                    if (data.unAuthorizedRequest) {
-                        uni.navigateTo({
-                            url: "/pages/index/login",
-                        });
+                if (data.__abp) {
+                    if (data.success) {
+                        resolve(data.result);
+                    } else {
+                        if (data.unAuthorizedRequest) {
+                            uni.navigateTo({
+                                url: "/pages/index/login",
+                            });
+                            return;
+                        }
+                        errorPrompt(data.error);
+                        reject(data.error.details || data.error.message);
                         return;
                     }
-                    errorPrompt(data.error);
-                    reject(data.error.details || data.error.message);
-                    return;
                 }
+                else {
+                    resolve(data);
+                }
+
             }
             options!.fail = (err: any) => {
                 console.log("httpsPromisify", err)

@@ -43,6 +43,10 @@ const request = (
 
 export default {
 
+    getTongJi: (data: any) => request("GET", "http://lkapi3.linkunst.com/hadoop/Hadoop_api/tradeSummaryList?number=4"),
+    getJianCe: (data: any) => request("GET", "http://lkapi3.linkunst.com/hadoop/Hadoop_Api/detectionList?number=4"),
+
+
     getSetting: () => request("GET", "/api/services/LaborUnion/Client/GetSettings"),
 
     //小程序
