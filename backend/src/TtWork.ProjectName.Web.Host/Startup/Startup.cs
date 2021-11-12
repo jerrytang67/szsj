@@ -33,6 +33,7 @@ using Serilog.Sinks.Elasticsearch;
 using TT.Extensions.Redis;
 using TT.HttpClient.Weixin;
 using TT.HttpClient.Weixin.Signature;
+using TTWork.Abp.Activity.Applications;
 using TTWork.Abp.Core.Identity;
 using TTWork.Abp.Oss.UpYun;
 using TTWork.Abp.WorkFlowCore.Services;
@@ -114,7 +115,7 @@ namespace TtWork.ProjectName.Web.Host.Startup
                 // Swagger - Enable this line and the related lines in Configure method to enable swagger UI
                 services.AddSwaggerGen(options =>
                 {
-                    options.SwaggerDoc("v1", new OpenApiInfo() {Title = "TtWork ProjectName API", Version = "v1"});
+                    options.SwaggerDoc("v1", new OpenApiInfo() { Title = "TtWork ProjectName API", Version = "v1" });
                     options.DocInclusionPredicate((docName, description) => true);
 
                     // Define the BearerAuth scheme that's in use
@@ -195,7 +196,7 @@ namespace TtWork.ProjectName.Web.Host.Startup
             }
 
             //微信消息中间件
-            app.UseWeiXin(options: new WeiXinOptions() {Path = "/wx", MutilTenant = true});
+            app.UseWeiXin(options: new WeiXinOptions() { Path = "/wx", MutilTenant = true });
 
             // 注册Workflow
             var host = app.ApplicationServices.GetService<IWorkflowHost>();
@@ -208,14 +209,14 @@ namespace TtWork.ProjectName.Web.Host.Startup
         {
             // HTTPClient 
             services.AddHttpClient<IUpyunApi, UpyunApi>(cfg => { cfg.BaseAddress = new Uri("https://v0.api.upyun.com/"); })
-                .ConfigurePrimaryHttpMessageHandler(_ => new HttpClientHandler {Proxy = null, UseProxy = false});
+                .ConfigurePrimaryHttpMessageHandler(_ => new HttpClientHandler { Proxy = null, UseProxy = false });
 
             // HTTPClient
             services.AddHttpClient<IWeixinApi, WeixinApi>(cfg => { cfg.BaseAddress = new Uri("https://api.weixin.qq.com/"); })
-                .ConfigurePrimaryHttpMessageHandler(_ => new HttpClientHandler {Proxy = null, UseProxy = false});
+                .ConfigurePrimaryHttpMessageHandler(_ => new HttpClientHandler { Proxy = null, UseProxy = false });
 
             services.AddHttpClient<IWeixinWorkApi, WeixinWorkApi>()
-                .ConfigurePrimaryHttpMessageHandler(_ => new HttpClientHandler {Proxy = null, UseProxy = false});
+                .ConfigurePrimaryHttpMessageHandler(_ => new HttpClientHandler { Proxy = null, UseProxy = false });
 
             services.AddHttpClient<IPayApi, PayApi>(cfg => { cfg.BaseAddress = new Uri("https://api.mch.weixin.qq.com/"); })
                 .ConfigurePrimaryHttpMessageHandler(serviceProvider => new HttpClientHandler
@@ -230,13 +231,16 @@ namespace TtWork.ProjectName.Web.Host.Startup
                 });
 
             services.AddHttpClient<DingTalkOApiClient>()
-                .ConfigurePrimaryHttpMessageHandler(_ => new HttpClientHandler {Proxy = null, UseProxy = false});
+                .ConfigurePrimaryHttpMessageHandler(_ => new HttpClientHandler { Proxy = null, UseProxy = false });
+
+            services.AddHttpClient<LinkunstClient>()
+                .ConfigurePrimaryHttpMessageHandler(_ => new HttpClientHandler { Proxy = null, UseProxy = false });
 
             services.AddHttpClient("qlogoClient", x => { x.BaseAddress = new Uri("https://wx.qlogo.cn/"); })
-                .ConfigurePrimaryHttpMessageHandler(_ => new HttpClientHandler {Proxy = null, UseProxy = false});
+                .ConfigurePrimaryHttpMessageHandler(_ => new HttpClientHandler { Proxy = null, UseProxy = false });
 
             services.AddHttpClient("imgClient", x => { x.BaseAddress = new Uri("https://img.wujiangapp.com/"); })
-                .ConfigurePrimaryHttpMessageHandler(_ => new HttpClientHandler {Proxy = null, UseProxy = false});
+                .ConfigurePrimaryHttpMessageHandler(_ => new HttpClientHandler { Proxy = null, UseProxy = false });
         }
     }
 

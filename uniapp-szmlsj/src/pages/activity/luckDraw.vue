@@ -42,9 +42,15 @@
                </view>
             </view>
             <view v-else-if="item.type === 'UserLuckyTimes'">
-               <view class="mt-4">
+               <view class="py-4 text-center">
                   剩余抽奖次数:
                   <text class="text-red-500 text-xl font-bold px-2">{{ item.luckTimes || 0 }}</text>
+               </view>
+               <view
+                  class="w-full items-center justify-center flex overflow-auto"
+                  v-if="item.settings.bottomHtml"
+               >
+                  <rich-text :nodes="item.settings.bottomHtml"></rich-text>
                </view>
             </view>
             <view

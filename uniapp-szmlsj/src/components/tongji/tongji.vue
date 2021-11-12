@@ -56,9 +56,10 @@ export default class TongJi extends Vue {
         this.tongji = null;
         setTimeout(() => {
             api.getTongJi({}).then((res: any) => {
+                let json = JSON.parse(res);
                 // console.log("getJianCe", res);
-                if (res && res.data && res.data.length) {
-                    this.tongji = res.data[0]
+                if (json && json.data && json.data.length) {
+                    this.tongji = json.data[0]
                 }
             });
         }, 500)

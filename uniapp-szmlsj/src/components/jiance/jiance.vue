@@ -47,8 +47,10 @@ export default class JianCe extends Vue {
         setTimeout(() => {
             api.getJianCe({}).then((res: any) => {
                 // console.log("getJianCe", res);
-                if (res && res.data) {
-                    this.jianceList = res.data;
+                let json = JSON.parse(res);
+                // console.log("getJianCe", res);
+                if (json && json.data && json.data.length) {
+                    this.jianceList = json.data;
                 }
             });
         }, 500)
