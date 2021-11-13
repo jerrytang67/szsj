@@ -9,13 +9,11 @@ namespace TTWork.Abp.Activity.Applications
 {
     public class LinkunstClient
     {
-        public HttpClient _client { get; private set; }
+        public HttpClient _client { get; }
 
         public LinkunstClient(HttpClient httpClient)
         {
             httpClient.BaseAddress = new Uri("http://lkapi3.linkunst.com");
-            // httpClient.DefaultRequestHeaders.Add("Accept", "application/vnd.github.v3+json");
-            // httpClient.DefaultRequestHeaders.Add("User-Agent", "HttpClientFactory-Sample");
             _client = httpClient;
         }
 
@@ -40,19 +38,16 @@ namespace TTWork.Abp.Activity.Applications
             _linkunstClient = linkunstClient;
         }
 
-        public async Task<object> GetTradeSummaryList()
+        public async Task<string> GetTradeSummaryList()
         {
             return await _linkunstClient.TradeSummaryListAsync();
-            return JsonSerializer.Deserialize<JObject>(await _linkunstClient.TradeSummaryListAsync());
         }
 
 
-        public async Task<object> GetDetectionList()
+        public async Task<string> GetDetectionList()
         {
-
             var str = await _linkunstClient.DetectionListAsync();
             return str;
-            return JsonSerializer.Deserialize<JObject>(str);
         }
     }
 }

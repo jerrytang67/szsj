@@ -4,7 +4,7 @@
             <view class="font-bold text-lg border-red-700 border-solid border-0 border-l-4">
                 <text class="ml-2 text-red-700">数据</text>统计
             </view>
-            <view class="flex items-center text-gray-400" @tap="loadData">
+            <view class="flex items-center text-gray-400 zoom-in" @tap="loadData">
                 刷新
                 <view class="icon icon-shuaxin ml-1"></view>
             </view>

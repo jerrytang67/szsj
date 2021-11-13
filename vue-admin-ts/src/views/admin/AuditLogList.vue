@@ -25,8 +25,10 @@
          <!-- <el-table-column label="编号" width="80" prop="id"   /> -->
          <!-- <el-table-column label="userId" prop="userId"   align="center" /> -->
          <el-table-column label="用户名" prop="userName" align="center" />
+         <el-table-column label="userId" prop="userId" align="center" />
          <el-table-column label="Service" prop="serviceName" align="center" />
          <el-table-column label="Method" prop="methodName" align="center" />
+         <el-table-column label="parameters" prop="parameters" align="center" />
          <el-table-column label="时间" prop="executionTime" align="center">
             <template slot-scope="scope">{{ scope.row.executionTime | formatDate("MM-DD HH:mm:ss") }}</template>
          </el-table-column>

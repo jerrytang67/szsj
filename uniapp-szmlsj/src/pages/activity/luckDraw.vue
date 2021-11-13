@@ -212,6 +212,14 @@ export default class LuckDraw extends BaseView {
    }
 
    async onLoad(query: any) {
+
+      wx.updateShareMenu({
+         withShareTicket: true,
+         success() {
+            console.log(" updateShareMenu success")
+         }
+      })
+
       console.log("query:", query);
       if (query.id) {
          this.id = query.id;
