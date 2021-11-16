@@ -59,7 +59,7 @@ namespace TtWork.ProjectName.Apis.Cms
 
             var categoryList = await _categoryRepository.GetAllListAsync();
 
-            schema["categoryId"] = categoryList.GetSelection("number", "categoryId", @"{0}", new[] {"Name"}, "Id");
+            schema["categoryId"] = categoryList.GetSelection("number", "categoryId", @"{0}", new[] { "Name" }, "Id");
 
             schema["linkTypes"] = typeof(CmsContentLinkType).GetEnumSelection();
 
@@ -72,13 +72,14 @@ namespace TtWork.ProjectName.Apis.Cms
         {
             return await base.GetAllAsync(input);
         }
-        
+
         public async Task<PagedResultDto<CmsContentDto>> GetAllPublish(AppResultRequestDto input)
         {
+            input.Sorting = "creationTime desc";
             input.Status = 1;
             return await base.GetAllAsync(input);
         }
-        
+
         /// <summary>
         /// 让GetAll输出带有category
         /// </summary>
@@ -155,7 +156,7 @@ namespace TtWork.ProjectName.Apis.Cms
                 throw new UserFriendlyException($"该条信息[{input.Id}]已不存在");
 
             var myEvent = await _cmsContentEventRepository.FirstOrDefaultAsync(x =>
-                x.CmsContentId == input.Id && x.CreatorUserId == AbpSession.UserId && (int) x.EventType == input.EventType);
+                x.CmsContentId == input.Id && x.CreatorUserId == AbpSession.UserId && (int)x.EventType == input.EventType);
 
             if (input.Event.ToLower() == "delete")
             {
@@ -171,15 +172,15 @@ namespace TtWork.ProjectName.Apis.Cms
             {
                 switch (input.EventType)
                 {
-                    case ((int) EventTypeEnum.Favorite): //收藏
+                    case ((int)EventTypeEnum.Favorite): //收藏
                         if (myEvent == null)
                             await _cmsContentEventRepository.InsertAsync(new CmsContentEvent()
-                                {EventType = EventTypeEnum.Favorite, CmsContentId = input.Id});
+                                { EventType = EventTypeEnum.Favorite, CmsContentId = input.Id });
                         break;
-                    case ((int) EventTypeEnum.Share): //分享
+                    case ((int)EventTypeEnum.Share): //分享
                         if (myEvent == null)
                             await _cmsContentEventRepository.InsertAsync(new CmsContentEvent()
-                                {EventType = EventTypeEnum.Share, CmsContentId = input.Id});
+                                { EventType = EventTypeEnum.Share, CmsContentId = input.Id });
                         break;
                 }
             }
@@ -220,7 +221,7 @@ namespace TtWork.ProjectName.Apis.Cms
         public async Task Publish(EntityDto<int> input)
         {
             var entity = await this.Repository.GetAsync(input.Id);
-            entity.Status = (int) EnumClass.CmsContentStatus.Published;
+            entity.Status = (int)EnumClass.CmsContentStatus.Published;
         }
 
         /// <summary>
@@ -231,7 +232,7 @@ namespace TtWork.ProjectName.Apis.Cms
         public async Task CancelPublish(EntityDto<int> input)
         {
             var entity = await this.Repository.GetAsync(input.Id);
-            entity.Status = (int) EnumClass.CmsContentStatus.Draft;
+            entity.Status = (int)EnumClass.CmsContentStatus.Draft;
         }
     }
 }

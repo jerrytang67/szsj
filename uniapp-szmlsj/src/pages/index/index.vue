@@ -53,7 +53,7 @@
                </view>
                <view
                   class="text-gray-600 mt-2 ml-4 text-sm"
-               >{{ v.creationTime | formatDate('YYYY-MM-DD') }}</view>
+               >{{ v.creationTime | formatDate('YYYY-MM-DD',) }}</view>
             </view>
             <view class="w-24">
                <image class="w-24 h-16" :src="v.titleImageUrl" mode="aspectFill" />
@@ -92,9 +92,9 @@ export default class About extends BaseView {
       })
 
       // this.isLoading = true;
-      api.getAllCmsContent({ pid: 1, sorting: "sort desc" }).then(
+      api.getAllCmsContent({ pid: 1, maxResultCount:5, sorting: "creationTime desc" }).then(
          (res: any) => {
-            this.list2 = res.items!;
+            this.list2 = res.items!; 
          }
       );
       // api.getAllCmsContent({
