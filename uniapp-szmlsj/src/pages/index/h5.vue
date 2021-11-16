@@ -11,7 +11,7 @@ import { Component, Vue, Prop, Watch, Ref } from "vue-property-decorator";
 const SHARE_DATA_KEY = "h5ShareData";
 @Component
 export default class H5 extends Vue {
-   created() {}
+   created() { }
 
    item: any = { id: 0 };
 
@@ -28,6 +28,22 @@ export default class H5 extends Vue {
             uni.setNavigationBarTitle({ title: res.title });
          });
       }
+   }
+
+   onShareAppMessage(option: any) {
+      let shareData = uni.getStorageSync(SHARE_DATA_KEY);
+      return {
+         title: shareData.title,
+         path: shareData.page,
+      };
+   }
+
+   onShareTimeline() {
+      let shareData = uni.getStorageSync(SHARE_DATA_KEY);
+      return {
+         title: shareData.title,
+         query: shareData.query,
+      };
    }
 }
 </script>

@@ -14,11 +14,12 @@ import { Component, Vue, Prop, Watch, Ref } from "vue-property-decorator";
 const SHARE_DATA_KEY = "webViewShareData";
 @Component
 export default class WebView extends Vue {
-   created() {}
+   created() { }
 
    item: any = { id: 0 };
 
    async onLoad(query: any): Promise<void> {
+
       console.log("query:", query);
       if (query.id) {
          await api.getCmsContent({ id: query.id }).then((res: any) => {
@@ -32,6 +33,23 @@ export default class WebView extends Vue {
          });
       }
    }
+
+   onShareAppMessage(option: any) {
+      let shareData = uni.getStorageSync(SHARE_DATA_KEY);
+      return {
+         title: shareData.title,
+         path: shareData.page,
+      };
+   }
+
+   onShareTimeline() {
+      let shareData = uni.getStorageSync(SHARE_DATA_KEY);
+      return {
+         title: shareData.title,
+         query: shareData.query,
+      };
+   }
+
 }
 </script>
 <style lang="scss" scoped>
