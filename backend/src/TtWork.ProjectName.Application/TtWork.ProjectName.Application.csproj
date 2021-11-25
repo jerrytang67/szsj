@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <VersionPrefix>1.0.0.0</VersionPrefix>
-        <TargetFramework>netcoreapp5.0</TargetFramework>
+        <TargetFramework>net6.0</TargetFramework>
         <AssetTargetFallback>$(AssetTargetFallback);portable-net45+win8+wp8+wpa81;</AssetTargetFallback>
         <AssemblyName>TtWork.ProjectName.Application</AssemblyName>
         <PackageId>TtWork.ProjectName.Application</PackageId>
@@ -17,17 +17,16 @@
         <ProjectReference Include="..\..\Modules\TTWork.Abp.Oss.UpYun\TTWork.Abp.Oss.UpYun.csproj" />
         <ProjectReference Include="..\..\Modules\TTWork.Abp.AuditManagement\TTWork.Abp.AuditManagement.csproj" />
         <ProjectReference Include="..\..\Modules\TTWork.Abp.FeatureManagement\TTWork.Abp.FeatureManagement.csproj" />
-        <ProjectReference Include="..\..\Projects\TTWork.Abp.LaborUnion\TTWork.Abp.LaborUnion.csproj" />
         <ProjectReference Include="..\TtWork.ProjectName.Core\TtWork.ProjectName.Core.csproj" />
         
     </ItemGroup>
     <ItemGroup>
       <PackageReference Include="aliyun-net-sdk-core" Version="1.5.10" />
       <PackageReference Include="aliyun-net-sdk-dysmsapi" Version="1.0.0" />
-      <PackageReference Include="aliyun-net-sdk-sts" Version="3.0.4" />
+      <PackageReference Include="aliyun-net-sdk-sts" Version="3.1.0" />
       <PackageReference Include="Aliyun.OSS.SDK.NetCore" Version="2.13.0" />
       <PackageReference Include="MediatR" Version="9.0.0" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.4" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.0" />
       <PackageReference Include="SixLabors.ImageSharp.Drawing" Version="1.0.0-beta0008" />
     </ItemGroup>
 </Project>

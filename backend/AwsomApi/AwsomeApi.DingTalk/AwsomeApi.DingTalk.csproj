@@ -1,11 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-        <TargetFramework>netcoreapp5.0</TargetFramework>
-        <PackageId>AwsomeApi.DingTalk</PackageId>
+        <TargetFramework>net6.0</TargetFramework>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="AutoMapper" Version="10.1.1" />
-        <PackageReference Include="StackExchange.Redis" Version="2.2.4" />
+        <PackageReference Include="StackExchange.Redis" Version="2.2.88" />
         <PackageReference Include="TT.Extensions" Version="4.2.3-beta" />
     </ItemGroup>
 </Project>

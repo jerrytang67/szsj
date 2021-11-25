@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <VersionPrefix>1.0.0.0</VersionPrefix>
-    <TargetFramework>netcoreapp5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <AssetTargetFallback>$(AssetTargetFallback);portable-net45+win8+wp8+wpa81;</AssetTargetFallback>
     <AssemblyName>TtWork.ProjectName.Tests</AssemblyName>
     <PackageId>TtWork.ProjectName.Tests</PackageId>
@@ -38,14 +38,14 @@
     <ProjectReference Include="..\..\src\TtWork.ProjectName.EntityFrameworkCore\TtWork.ProjectName.EntityFrameworkCore.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Abp.Castle.Log4Net" Version="6.3.0" />
-    <PackageReference Include="EntityFrameworkCore.Triggered" Version="2.3.0" />
-    <PackageReference Include="EntityFrameworkCore.Triggered.Extensions" Version="2.3.0" />
-    <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="5.0.4" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.4" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.4" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.4" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.4" />
+    <PackageReference Include="Abp.Castle.Log4Net" Version="7.0.0-rc.1" />
+    <PackageReference Include="EntityFrameworkCore.Triggered" Version="3.0.0" />
+    <PackageReference Include="EntityFrameworkCore.Triggered.Extensions" Version="3.0.0" />
+    <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="6.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
     <PackageReference Include="NSubstitute" Version="4.2.2" />
     <PackageReference Include="Shouldly" Version="4.0.3" />
     <PackageReference Include="xunit" Version="2.4.1" />
@@ -54,8 +54,8 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Abp.TestBase" Version="6.3.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="5.0.4" />
+    <PackageReference Include="Abp.TestBase" Version="7.0.0-rc.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="6.0.0" />
     <PackageReference Include="Castle.Core" Version="4.4.1" />
   </ItemGroup>
   <ItemGroup>

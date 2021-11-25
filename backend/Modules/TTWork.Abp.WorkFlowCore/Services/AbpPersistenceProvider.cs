@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Abp;
 using Abp.Domain.Repositories;
@@ -28,15 +29,15 @@ namespace TTWork.Abp.WorkFlowCore.Services
         protected readonly IGuidGenerator _guidGenerator;
         protected readonly IAsyncQueryableExecuter _asyncQueryableExecuter;
         public IAbpSession AbpSession { get; set; }
-        
+
         public AbpPersistenceProvider(
-            IRepository<PersistedEvent, Guid> eventRepository, 
+            IRepository<PersistedEvent, Guid> eventRepository,
             IRepository<PersistedExecutionPointer, string> executionPointerRepository,
-            IRepository<PersistedWorkflow, Guid> workflowRepository, 
+            IRepository<PersistedWorkflow, Guid> workflowRepository,
             IRepository<PersistedSubscription, Guid> eventSubscriptionRepository,
             IRepository<PersistedExecutionError, Guid> executionErrorRepository,
             IRepository<PersistedWorkflowDefinition, string> workflowDefinitionRepository,
-            IRepository<User,long> userRepository,
+            IRepository<User, long> userRepository,
             IGuidGenerator guidGenerator,
             IAsyncQueryableExecuter asyncQueryableExecuter)
         {
@@ -52,7 +53,7 @@ namespace TTWork.Abp.WorkFlowCore.Services
         }
 
         [UnitOfWork]
-        public virtual async Task<string> CreateEventSubscription(EventSubscription subscription)
+        public virtual async Task<string> CreateEventSubscription(EventSubscription subscription, CancellationToken cancellationToken = new())
         {
             subscription.Id = _guidGenerator.Create().ToString();
             var persistable = subscription.ToPersistable();
@@ -61,13 +62,13 @@ namespace TTWork.Abp.WorkFlowCore.Services
         }
 
         [UnitOfWork]
-        public virtual async Task<string> CreateNewWorkflow(WorkflowInstance workflow)
+        public virtual async Task<string> CreateNewWorkflow(WorkflowInstance workflow, CancellationToken cancellationToken = new())
         {
             workflow.Id = _guidGenerator.Create().ToString();
             var persistable = workflow.ToPersistable();
             if (AbpSession.UserId.HasValue)
             {
-                var userCache = await _userRepository.FirstOrDefaultAsync(x=>x.Id == AbpSession.UserId.Value);
+                var userCache = await _userRepository.FirstOrDefaultAsync(x => x.Id == AbpSession.UserId.Value);
                 persistable.CreateUserIdentityName = userCache.FullName;
             }
 
@@ -76,7 +77,7 @@ namespace TTWork.Abp.WorkFlowCore.Services
         }
 
         [UnitOfWork]
-        public virtual async Task<IEnumerable<string>> GetRunnableInstances(DateTime asAt)
+        public virtual async Task<IEnumerable<string>> GetRunnableInstances(DateTime asAt, CancellationToken cancellationToken = new())
         {
             var now = asAt.ToUniversalTime().Ticks;
             var query = _workflowRepository.GetAll().Where(x => x.NextExecution.HasValue && (x.NextExecution <= now) && (x.Status == WorkflowStatus.Runnable))
@@ -108,7 +109,7 @@ namespace TTWork.Abp.WorkFlowCore.Services
                 query = query.Where(x => x.CreateTime <= createdTo.Value);
 
             var rawResult = await query.Skip(skip).Take(take).ToListAsync();
-            List<WorkflowInstance> result = new List<WorkflowInstance>();
+            var result = new List<WorkflowInstance>();
 
             foreach (var item in rawResult)
                 result.Add(item.ToWorkflowInstance());
@@ -117,14 +118,14 @@ namespace TTWork.Abp.WorkFlowCore.Services
         }
 
         [UnitOfWork]
-        public virtual async Task<WorkflowInstance> GetWorkflowInstance(string Id)
+        public virtual async Task<WorkflowInstance> GetWorkflowInstance(string Id, CancellationToken cancellationToken = new())
         {
             var uid = new Guid(Id);
             var raw = await _workflowRepository.GetAll()
                 .Include(wf => wf.ExecutionPointers)
                 .ThenInclude(ep => ep.ExtensionAttributes)
                 .Include(wf => wf.ExecutionPointers)
-                .FirstAsync(x => x.Id == uid);
+                .FirstAsync(x => x.Id == uid, cancellationToken: cancellationToken);
 
             if (raw == null)
                 return null;
@@ -135,13 +136,12 @@ namespace TTWork.Abp.WorkFlowCore.Services
         }
 
         [UnitOfWork]
-        public virtual async Task<IEnumerable<WorkflowInstance>> GetWorkflowInstances(IEnumerable<string> ids)
+        public virtual async Task<IEnumerable<WorkflowInstance>> GetWorkflowInstances(IEnumerable<string> ids, CancellationToken cancellationToken = new())
         {
             if (ids == null)
             {
                 return new List<WorkflowInstance>();
             }
-
 
             var uids = ids.Select(i => new Guid(i));
             var raw = _workflowRepository.GetAll()
@@ -150,11 +150,11 @@ namespace TTWork.Abp.WorkFlowCore.Services
                 .Include(wf => wf.ExecutionPointers)
                 .Where(x => uids.Contains(x.Id));
 
-            return (await raw.ToListAsync()).Select(i => i.ToWorkflowInstance());
+            return (await raw.ToListAsync(cancellationToken: cancellationToken)).Select(i => i.ToWorkflowInstance());
         }
 
         [UnitOfWork]
-        public virtual async Task PersistWorkflow(WorkflowInstance workflow)
+        public virtual async Task PersistWorkflow(WorkflowInstance workflow, CancellationToken cancellationToken = new())
         {
             var uid = new Guid(workflow.Id);
             var existingEntity = await _workflowRepository.GetAll()
@@ -163,20 +163,21 @@ namespace TTWork.Abp.WorkFlowCore.Services
                 .ThenInclude(ep => ep.ExtensionAttributes)
                 .Include(wf => wf.ExecutionPointers)
                 .AsTracking()
-                .FirstAsync();
+                .FirstAsync(cancellationToken: cancellationToken);
 
             var persistable = workflow.ToPersistable(existingEntity);
             await CurrentUnitOfWork.SaveChangesAsync();
         }
 
         [UnitOfWork]
-        public virtual async Task TerminateSubscription(string eventSubscriptionId)
+        public virtual async Task TerminateSubscription(string eventSubscriptionId, CancellationToken cancellationToken = new())
         {
             var uid = new Guid(eventSubscriptionId);
             var existing = await _eventSubscriptionRepository.FirstOrDefaultAsync(x => x.Id == uid);
-            _eventSubscriptionRepository.Delete(existing);
+            await _eventSubscriptionRepository.DeleteAsync(existing);
             await CurrentUnitOfWork.SaveChangesAsync();
         }
+
 
         [UnitOfWork]
         public virtual void EnsureStoreExists()
@@ -184,41 +185,38 @@ namespace TTWork.Abp.WorkFlowCore.Services
         }
 
         [UnitOfWork]
-        public virtual async Task<IEnumerable<EventSubscription>> GetSubscriptions(string eventName, string eventKey, DateTime asOf)
+        public virtual async Task<IEnumerable<EventSubscription>> GetSubscriptions(string eventName, string eventKey, DateTime asOf, CancellationToken cancellationToken = new())
         {
             asOf = asOf.ToUniversalTime();
             var raw = await _eventSubscriptionRepository.GetAll()
                 .Where(x => x.EventName == eventName && x.EventKey == eventKey && x.SubscribeAsOf <= asOf)
-                .ToListAsync();
+                .ToListAsync(cancellationToken: cancellationToken);
 
             return raw.Select(item => item.ToEventSubscription()).ToList();
         }
 
         [UnitOfWork]
-        public virtual async Task<string> CreateEvent(Event newEvent)
+        public virtual async Task<string> CreateEvent(Event newEvent, CancellationToken cancellationToken = new())
         {
             newEvent.Id = _guidGenerator.Create().ToString();
             var persistable = newEvent.ToPersistable();
-            var result = _eventRepository.InsertAsync(persistable);
+            var result = await _eventRepository.InsertAsync(persistable);
             await CurrentUnitOfWork.SaveChangesAsync();
             return newEvent.Id;
         }
 
         [UnitOfWork]
-        public virtual async Task<Event> GetEvent(string id)
+        public virtual async Task<Event> GetEvent(string id, CancellationToken cancellationToken = new())
         {
-            Guid uid = new Guid(id);
+            var uid = new Guid(id);
             var raw = await _eventRepository
                 .FirstOrDefaultAsync(x => x.Id == uid);
 
-            if (raw == null)
-                return null;
-
-            return raw.ToEvent();
+            return raw?.ToEvent();
         }
 
         [UnitOfWork]
-        public virtual async Task<IEnumerable<string>> GetRunnableEvents(DateTime asAt)
+        public virtual async Task<IEnumerable<string>> GetRunnableEvents(DateTime asAt, CancellationToken cancellationToken = new())
         {
             // var now = asAt.ToUniversalTime();
             var now = asAt.ToUniversalTime();
@@ -227,32 +225,32 @@ namespace TTWork.Abp.WorkFlowCore.Services
                 .Where(x => !x.IsProcessed)
                 .Where(x => x.EventTime <= now)
                 .Select(x => x.Id)
-                .ToListAsync();
+                .ToListAsync(cancellationToken: cancellationToken);
 
             return raw.Select(s => s.ToString()).ToList();
         }
 
         [UnitOfWork]
-        public virtual async Task MarkEventProcessed(string id)
+        public virtual async Task MarkEventProcessed(string id, CancellationToken cancellationToken = new())
         {
             var uid = new Guid(id);
             var existingEntity = await _eventRepository.GetAll()
                 .Where(x => x.Id == uid)
                 .AsTracking()
-                .FirstAsync();
+                .FirstAsync(cancellationToken: cancellationToken);
 
             existingEntity.IsProcessed = true;
             await CurrentUnitOfWork.SaveChangesAsync();
         }
 
         [UnitOfWork]
-        public virtual async Task<IEnumerable<string>> GetEvents(string eventName, string eventKey, DateTime asOf)
+        public virtual async Task<IEnumerable<string>> GetEvents(string eventName, string eventKey, DateTime asOf, CancellationToken cancellationToken = new())
         {
             var raw = await _eventRepository.GetAll()
                 .Where(x => x.EventName == eventName && x.EventKey == eventKey)
                 .Where(x => x.EventTime >= asOf)
                 .Select(x => x.Id)
-                .ToListAsync();
+                .ToListAsync(cancellationToken: cancellationToken);
 
             var result = new List<string>();
 
@@ -263,20 +261,20 @@ namespace TTWork.Abp.WorkFlowCore.Services
         }
 
         [UnitOfWork]
-        public virtual async Task MarkEventUnprocessed(string id)
+        public virtual async Task MarkEventUnprocessed(string id, CancellationToken cancellationToken = new())
         {
             var uid = new Guid(id);
             var existingEntity = await _eventRepository.GetAll()
                 .Where(x => x.Id == uid)
                 .AsTracking()
-                .FirstAsync();
+                .FirstAsync(cancellationToken: cancellationToken);
 
             existingEntity.IsProcessed = false;
             await CurrentUnitOfWork.SaveChangesAsync();
         }
 
         [UnitOfWork]
-        public virtual async Task PersistErrors(IEnumerable<ExecutionError> errors)
+        public virtual async Task PersistErrors(IEnumerable<ExecutionError> errors, CancellationToken cancellationToken = new())
         {
             var executionErrors = errors as ExecutionError[] ?? errors.ToArray();
             if (executionErrors.Any())
@@ -291,7 +289,7 @@ namespace TTWork.Abp.WorkFlowCore.Services
         }
 
         [UnitOfWork]
-        public virtual async Task<EventSubscription> GetSubscription(string eventSubscriptionId)
+        public virtual async Task<EventSubscription> GetSubscription(string eventSubscriptionId, CancellationToken cancellationToken = new())
         {
             var uid = new Guid(eventSubscriptionId);
             var raw = await _eventSubscriptionRepository.FirstOrDefaultAsync(x => x.Id == uid);
@@ -300,7 +298,7 @@ namespace TTWork.Abp.WorkFlowCore.Services
         }
 
         [UnitOfWork]
-        public virtual async Task<EventSubscription> GetFirstOpenSubscription(string eventName, string eventKey, DateTime asOf)
+        public virtual async Task<EventSubscription> GetFirstOpenSubscription(string eventName, string eventKey, DateTime asOf, CancellationToken cancellationToken = new())
         {
             var raw = await _eventSubscriptionRepository.FirstOrDefaultAsync(x => x.EventName == eventName && x.EventKey == eventKey && x.SubscribeAsOf <= asOf && x.ExternalToken == null);
 
@@ -308,13 +306,13 @@ namespace TTWork.Abp.WorkFlowCore.Services
         }
 
         [UnitOfWork]
-        public virtual async Task<bool> SetSubscriptionToken(string eventSubscriptionId, string token, string workerId, DateTime expiry)
+        public virtual async Task<bool> SetSubscriptionToken(string eventSubscriptionId, string token, string workerId, DateTime expiry, CancellationToken cancellationToken = new())
         {
             var uid = new Guid(eventSubscriptionId);
             var existingEntity = await _eventSubscriptionRepository.GetAll()
                 .Where(x => x.Id == uid)
                 .AsTracking()
-                .FirstAsync();
+                .FirstAsync(cancellationToken: cancellationToken);
 
             existingEntity.ExternalToken = token;
             existingEntity.ExternalWorkerId = workerId;
@@ -325,13 +323,13 @@ namespace TTWork.Abp.WorkFlowCore.Services
         }
 
         [UnitOfWork]
-        public virtual async Task ClearSubscriptionToken(string eventSubscriptionId, string token)
+        public virtual async Task ClearSubscriptionToken(string eventSubscriptionId, string token, CancellationToken cancellationToken = new())
         {
             var uid = new Guid(eventSubscriptionId);
             var existingEntity = await _eventSubscriptionRepository.GetAll()
                 .Where(x => x.Id == uid)
                 .AsTracking()
-                .FirstAsync();
+                .FirstAsync(cancellationToken: cancellationToken);
 
             if (existingEntity.ExternalToken != token)
                 throw new InvalidOperationException();
@@ -356,5 +354,17 @@ namespace TTWork.Abp.WorkFlowCore.Services
         {
             return _executionPointerRepository.GetAsync(id);
         }
+
+        public Task ScheduleCommand(ScheduledCommand command)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task ProcessCommands(DateTimeOffset asOf, Func<ScheduledCommand, Task> action, CancellationToken cancellationToken = new CancellationToken())
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool SupportsScheduledCommands { get; }
     }
 }

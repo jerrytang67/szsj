@@ -53,7 +53,8 @@ namespace TTWork.Abp.Core
 
         public override void PostInitialize()
         {
-            ValidatorOptions.LanguageManager.Culture = new CultureInfo("zh-CN");
+            ValidatorOptions.Global.LanguageManager.Culture = new CultureInfo("zh-CN");
+
         }
 
         public override void Initialize()

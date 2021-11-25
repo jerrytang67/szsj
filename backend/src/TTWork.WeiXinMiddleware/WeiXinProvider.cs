@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Castle.Core.Logging;
+// using Castle.Core.Logging;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace TTWork.WeiXinMiddleware
 {
@@ -61,7 +62,7 @@ namespace TTWork.WeiXinMiddleware
             }
             catch (Exception ex)
             {
-                _logger.Error("运行服务 {@WeiXinProvideError}", ex);
+                _logger.LogError("运行服务 {@WeiXinProvideError}", ex);
                 await context.Response.WriteAsync(ex.Message);
             }
         }
@@ -86,7 +87,7 @@ namespace TTWork.WeiXinMiddleware
             using (System.IO.StreamReader streamReader = new System.IO.StreamReader(context.Request.Body))
             {
                 recieveBody = streamReader.ReadToEndAsync().GetAwaiter().GetResult();
-                _logger.InfoFormat("接收内容：{@RecieveBody}", recieveBody);
+                _logger.LogInformation("接收内容：{@RecieveBody}", recieveBody);
                 recieveBody = TTWork.WeiXinMiddleware.Utils.ClearXmlHeader(recieveBody);
             }
 

@@ -1,35 +1,26 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-        <VersionPrefix>1.0.0.0</VersionPrefix>
-        <TargetFramework>netcoreapp5.0</TargetFramework>
-        <AssetTargetFallback>$(AssetTargetFallback);portable-net45+win8+wp8+wpa81;</AssetTargetFallback>
-        <AssemblyName>TtWork.ProjectName.Core</AssemblyName>
-        <PackageId>TtWork.ProjectName.Core</PackageId>
-        <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
-        <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
-        <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
-        <UserSecretsId>ProjectName-Abp-56C2EF2F-ABD6-4EFC-AAF2-2E81C34E8FB1</UserSecretsId>
-        <RootNamespace>TtWork.ProjectName</RootNamespace>
+        <TargetFramework>net6.0</TargetFramework>
     </PropertyGroup>
     <ItemGroup>
-        <EmbeddedResource Include="Localization\JsonSources\ProjectName.json" />
+        <EmbeddedResource Include="Localization\JsonSources\ProjectName.json"/>
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Abp.AutoMapper" Version="6.3.0" />
-        <PackageReference Include="Abp.ZeroCore.EntityFrameworkCore" Version="6.3.0" />
-        <PackageReference Include="Castle.Windsor.MsDependencyInjection" Version="3.4.0" />
-        <PackageReference Include="Newtonsoft.Json.Schema" Version="3.0.14" />
-        <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
-        <PackageReference Include="TT.HttpClient.Weixin" Version="4.2.3-beta" />
+        <PackageReference Include="Abp.AutoMapper" Version="7.0.0-rc.1"/>
+        <PackageReference Include="Abp.ZeroCore.EntityFrameworkCore" Version="7.0.0-rc.1"/>
+        <PackageReference Include="Castle.Windsor.MsDependencyInjection" Version="3.4.0"/>
+        <PackageReference Include="Newtonsoft.Json.Schema" Version="3.0.15-beta1"/>
+        <PackageReference Include="System.Data.SqlClient" Version="4.8.3"/>
+        <PackageReference Include="TT.HttpClient.Weixin" Version="4.2.3-beta"/>
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\..\Modules\TTWork.Lib\TTWork.Lib.csproj" />
-        <ProjectReference Include="..\..\Modules\TTWork.Abp.AuditManagement\TTWork.Abp.AuditManagement.csproj" />
-        <ProjectReference Include="..\..\Modules\TTWork.Abp.Core\TTWork.Abp.Core.csproj" />
+        <ProjectReference Include="..\..\Modules\TTWork.Lib\TTWork.Lib.csproj"/>
+        <ProjectReference Include="..\..\Modules\TTWork.Abp.AuditManagement\TTWork.Abp.AuditManagement.csproj"/>
+        <ProjectReference Include="..\..\Modules\TTWork.Abp.Core\TTWork.Abp.Core.csproj"/>
     </ItemGroup>
     <ProjectExtensions>
         <VisualStudio>
-            <UserProperties />
+            <UserProperties/>
         </VisualStudio>
     </ProjectExtensions>
 </Project>

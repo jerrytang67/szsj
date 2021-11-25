@@ -37,10 +37,10 @@ namespace TtWork.ProjectName.Configuration
             builder = builder.AddEnvironmentVariables();
 
 
-            if (addUserSecrets)
-            {
-                builder.AddUserSecrets(typeof(AppConfigurations).GetAssembly());
-            }
+            // if (addUserSecrets)
+            // {
+            //     builder.AddUserSecrets(typeof(AppConfigurations).GetAssembly());
+            // }
 
             return builder.Build();
         }

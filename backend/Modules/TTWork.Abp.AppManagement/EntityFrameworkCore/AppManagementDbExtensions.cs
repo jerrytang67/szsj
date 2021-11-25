@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.Text.Json;
+using Abp.Json;
 using Microsoft.EntityFrameworkCore;
 using TTWork.Abp.AppManagement.Domain;
+using TTWork.Abp.Core.Extensions;
 
 namespace TTWork.Abp.AppManagement.EntityFrameworkCore
 {
@@ -16,8 +17,9 @@ namespace TTWork.Abp.AppManagement.EntityFrameworkCore
                 b.Property(x => x.Name).IsRequired().HasMaxLength(AppManagementConsts.MaxNameLength);
                 b.Property(x => x.ClientName).IsRequired().HasMaxLength(AppManagementConsts.MaxNameLength);
                 b.Property(x => x.Value).HasConversion(
-                    v => JsonSerializer.Serialize(v, null),
-                    v => JsonSerializer.Deserialize<Dictionary<string, string>>(v, null));
+                    v => v.ToJsonString(false, false),
+                    v => v.FromJsonStringExt<Dictionary<string, string>>()
+                );
 
                 b.Property(x => x.ProviderKey).HasMaxLength(AppManagementConsts.ProviderKeyLength);
                 b.Property(x => x.ProviderName).HasMaxLength(AppManagementConsts.ProviderNameLength);

@@ -7,6 +7,7 @@ using TTWork.Abp.Core.Authorization.Roles;
 using TTWork.Abp.Core.Authorization.Users;
 using TTWork.Abp.Core.MultiTenancy;
 using TtWork.ProjectName.Identity;
+using Abp.Domain.Uow;
 
 namespace TTWork.Abp.Core.Identity
 {
@@ -16,12 +17,14 @@ namespace TTWork.Abp.Core.Identity
             IOptions<SecurityStampValidatorOptions> options,
             SignInManager signInManager,
             ISystemClock systemClock,
-            ILoggerFactory loggerFactory)
+            ILoggerFactory loggerFactory,
+            IUnitOfWorkManager unitOfWorkManager
+            )
             : base(
                 options,
                 signInManager,
                 systemClock,
-                loggerFactory)
+                loggerFactory, unitOfWorkManager)
         {
         }
     }

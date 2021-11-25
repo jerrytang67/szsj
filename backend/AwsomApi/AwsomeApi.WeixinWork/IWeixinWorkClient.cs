@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Net.Http;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using AwsomeApi.WeixinWork.Message;
 using AwsomeApi.WeixinWork.WeixinResult;
-using Newtonsoft.Json;
 
 namespace AwsomeApi.WeixinWork
 {
@@ -39,7 +39,7 @@ namespace AwsomeApi.WeixinWork
         {
             var response = await _client.GetAsync($"cgi-bin/gettoken?corpid={corpid}&corpsecret={corpsecret}");
             var strJson = await response.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<TokenResult>(strJson);
+            return JsonSerializer.Deserialize<TokenResult>(strJson);
         }
 
 
@@ -51,10 +51,10 @@ namespace AwsomeApi.WeixinWork
         /// <returns></returns>
         public async Task<MessageResult> MessageSend(string accessToken, IMessage message)
         {
-            var content = new StringContent(JsonConvert.SerializeObject(message), Encoding.UTF8, "application/json");
+            var content = new StringContent(JsonSerializer.Serialize(message), Encoding.UTF8, "application/json");
             var response = await _client.PostAsync($"cgi-bin/message/send?access_token={accessToken}", content);
             var strJson = await response.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<MessageResult>(strJson);
+            return JsonSerializer.Deserialize<MessageResult>(strJson);
         }
     }
 }

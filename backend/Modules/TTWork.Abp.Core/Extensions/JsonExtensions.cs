@@ -2,7 +2,7 @@
 using Abp.Json;
 using Newtonsoft.Json;
 
-namespace SiVan.Abp.Core.Extensions
+namespace TTWork.Abp.Core.Extensions
 {
     public static class JsonExtensionsExt
     {

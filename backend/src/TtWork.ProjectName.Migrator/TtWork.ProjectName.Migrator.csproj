@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netcoreapp5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <AssetTargetFallback>$(AssetTargetFallback);portable-net45+win8+wp8+wpa81;</AssetTargetFallback>
     <AssemblyName>TtWork.ProjectName.Migrator</AssemblyName>
     <OutputType>Exe</OutputType>
@@ -15,7 +15,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Abp.Castle.Log4Net" Version="6.3.0" />
+    <PackageReference Include="Abp.Castle.Log4Net" Version="7.0.0-rc.1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TtWork.ProjectName.Core\TtWork.ProjectName.Core.csproj" />
