@@ -1,14 +1,15 @@
 // tailwind.config.js
 const colors = require("tailwindcss/colors");
 module.exports = {
+  mode: "jit",
   darkMode: "class", // or 'media' or 'class'
   purge: {
     enabled: process.env.NODE_ENV === "production" ? true : false,
     content: ["./src/**/*.vue", "./public/**/*.html"],
     // These options are passed through directly to PurgeCSS
     options: {
-      safelist: []
-    }
+      safelist: [],
+    },
   },
   theme: {
     extend: {
@@ -17,9 +18,9 @@ module.exports = {
         gray: colors.trueGray,
         orange: colors.orange,
         cyan: colors.cyan,
-        indigo: colors.indigo
-      }
-    }
+        indigo: colors.indigo,
+      },
+    },
   },
   variants: {
     extend: {
@@ -27,12 +28,12 @@ module.exports = {
       ringColor: ["hover"],
       ringOpacity: ["hover"],
       ringWidth: ["hover"],
-      backgroundColor: ["group-focus"]
-    }
+      backgroundColor: ["group-focus"],
+    },
   },
   plugins: [
     require("@tailwindcss/forms"),
     require("@tailwindcss/typography"),
-    require("@tailwindcss/aspect-ratio")
-  ]
+    require("@tailwindcss/aspect-ratio"),
+  ],
 };

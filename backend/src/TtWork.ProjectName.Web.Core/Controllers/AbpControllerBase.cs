@@ -1,5 +1,6 @@
 using Abp.AspNetCore.Mvc.Controllers;
 using Abp.IdentityFramework;
+using Abp.WebApi.Controllers;
 using Microsoft.AspNetCore.Identity;
 
 namespace TtWork.ProjectName.Controllers

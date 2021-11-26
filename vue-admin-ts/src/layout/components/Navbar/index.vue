@@ -4,7 +4,7 @@
       <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
       <div class="right-menu">
          <template v-if="device!=='mobile'">
-            <header-search class="right-menu-item" />
+            <!-- <header-search class="right-menu-item" /> -->
             <error-log class="errLog-container right-menu-item hover-effect" />
             <screenfull class="right-menu-item hover-effect" />
             <el-tooltip :content="$t('navbar.size')" effect="dark" placement="bottom">

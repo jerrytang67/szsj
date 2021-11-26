@@ -7,7 +7,7 @@ const path = require("path");
 const devServerPort = 9530; // TODO: get this variable from setting.ts
 const name = "Vue Typescript Admin"; // TODO: get this variable from setting.ts
 
-const CopyWebpackPlugin = require("copy-webpack-plugin");
+// const CopyWebpackPlugin = require("copy-webpack-plugin");
 const webpack = require("webpack");
 module.exports = {
   publicPath: process.env.NODE_ENV === "production" ? "/admin" : "/",

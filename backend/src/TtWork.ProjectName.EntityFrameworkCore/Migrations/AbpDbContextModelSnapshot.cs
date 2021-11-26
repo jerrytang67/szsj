@@ -6,6 +6,8 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TtWork.ProjectName.EntityFrameworkCore;
 
+#nullable disable
+
 namespace TtWork.ProjectName.Migrations
 {
     [DbContext(typeof(AbpDbContext))]
@@ -15,16 +17,18 @@ namespace TtWork.ProjectName.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "6.0.0")
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
             modelBuilder.Entity("Abp.Application.Editions.Edition", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("datetime2");
@@ -66,8 +70,9 @@ namespace TtWork.ProjectName.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("datetime2");
@@ -103,8 +108,9 @@ namespace TtWork.ProjectName.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
                     b.Property<string>("BrowserInfo")
                         .HasMaxLength(512)
@@ -178,8 +184,9 @@ namespace TtWork.ProjectName.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("datetime2");
@@ -215,8 +222,9 @@ namespace TtWork.ProjectName.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
                     b.Property<string>("ClaimType")
                         .HasMaxLength(256)
@@ -250,8 +258,9 @@ namespace TtWork.ProjectName.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("datetime2");
@@ -310,8 +319,9 @@ namespace TtWork.ProjectName.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
                     b.Property<string>("ClaimType")
                         .HasMaxLength(256)
@@ -345,8 +355,9 @@ namespace TtWork.ProjectName.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
                     b.Property<string>("LoginProvider")
                         .IsRequired()
@@ -368,6 +379,10 @@ namespace TtWork.ProjectName.Migrations
 
                     b.HasIndex("UserId");
 
+                    b.HasIndex("ProviderKey", "TenantId")
+                        .IsUnique()
+                        .HasFilter("[TenantId] IS NOT NULL");
+
                     b.HasIndex("TenantId", "UserId");
 
                     b.HasIndex("TenantId", "LoginProvider", "ProviderKey");
@@ -379,8 +394,9 @@ namespace TtWork.ProjectName.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
                     b.Property<string>("BrowserInfo")
                         .HasMaxLength(512)
@@ -427,8 +443,9 @@ namespace TtWork.ProjectName.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("datetime2");
@@ -463,8 +480,9 @@ namespace TtWork.ProjectName.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("datetime2");
@@ -496,8 +514,9 @@ namespace TtWork.ProjectName.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
                     b.Property<DateTime?>("ExpireDate")
                         .HasColumnType("datetime2");
@@ -533,8 +552,9 @@ namespace TtWork.ProjectName.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("datetime2");
@@ -578,8 +598,9 @@ namespace TtWork.ProjectName.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("datetime2");
@@ -621,8 +642,9 @@ namespace TtWork.ProjectName.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int>("DynamicPropertyId")
                         .HasColumnType("int");
@@ -649,8 +671,9 @@ namespace TtWork.ProjectName.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
                     b.Property<int>("DynamicEntityPropertyId")
                         .HasColumnType("int");
@@ -676,8 +699,9 @@ namespace TtWork.ProjectName.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("DisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -708,8 +732,9 @@ namespace TtWork.ProjectName.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
                     b.Property<int>("DynamicPropertyId")
                         .HasColumnType("int");
@@ -732,8 +757,9 @@ namespace TtWork.ProjectName.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
                     b.Property<DateTime>("ChangeTime")
                         .HasColumnType("datetime2");
@@ -768,8 +794,9 @@ namespace TtWork.ProjectName.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
                     b.Property<string>("BrowserInfo")
                         .HasMaxLength(512)
@@ -820,8 +847,9 @@ namespace TtWork.ProjectName.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
                     b.Property<long>("EntityChangeId")
                         .HasColumnType("bigint");
@@ -862,8 +890,9 @@ namespace TtWork.ProjectName.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("datetime2");
@@ -917,8 +946,9 @@ namespace TtWork.ProjectName.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("datetime2");
@@ -1144,8 +1174,9 @@ namespace TtWork.ProjectName.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
                     b.Property<string>("Code")
                         .IsRequired()
@@ -1202,8 +1233,9 @@ namespace TtWork.ProjectName.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("datetime2");
@@ -1337,8 +1369,9 @@ namespace TtWork.ProjectName.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
                     b.Property<string>("CheckCodes")
                         .HasMaxLength(512)
@@ -1421,15 +1454,16 @@ namespace TtWork.ProjectName.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Activity_LuckDraws");
+                    b.ToTable("Activity_LuckDraws", (string)null);
                 });
 
             modelBuilder.Entity("TTWork.Abp.Activity.Domains.LuckDrawPrize", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
                     b.Property<string>("ImageUrl")
                         .HasMaxLength(256)
@@ -1458,15 +1492,16 @@ namespace TtWork.ProjectName.Migrations
 
                     b.HasIndex("LuckDrawId");
 
-                    b.ToTable("Activity_LuckDrawPrizes");
+                    b.ToTable("Activity_LuckDrawPrizes", (string)null);
                 });
 
             modelBuilder.Entity("TTWork.Abp.Activity.Domains.PointActivity", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("datetime2");
@@ -1541,15 +1576,16 @@ namespace TtWork.ProjectName.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Activity_PointActivities");
+                    b.ToTable("Activity_PointActivities", (string)null);
                 });
 
             modelBuilder.Entity("TTWork.Abp.Activity.Domains.PointActivityUserLog", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
                     b.Property<long>("ActivityId")
                         .HasColumnType("bigint");
@@ -1606,15 +1642,16 @@ namespace TtWork.ProjectName.Migrations
 
                     b.HasIndex("ActivityId");
 
-                    b.ToTable("Activity_PointActivityUserLogs");
+                    b.ToTable("Activity_PointActivityUserLogs", (string)null);
                 });
 
             modelBuilder.Entity("TTWork.Abp.Activity.Domains.UserLuckTime", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("datetime2");
@@ -1672,15 +1709,16 @@ namespace TtWork.ProjectName.Migrations
 
                     b.HasIndex("UserPrizeId");
 
-                    b.ToTable("Activity_UserLuckTimes");
+                    b.ToTable("Activity_UserLuckTimes", (string)null);
                 });
 
             modelBuilder.Entity("TTWork.Abp.Activity.Domains.UserPointLog", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
                     b.Property<int>("AfterPoints")
                         .HasColumnType("int");
@@ -1711,15 +1749,16 @@ namespace TtWork.ProjectName.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Activity_UserPointLogs");
+                    b.ToTable("Activity_UserPointLogs", (string)null);
                 });
 
             modelBuilder.Entity("TTWork.Abp.Activity.Domains.UserPrize", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
                     b.Property<string>("CheckCode")
                         .HasMaxLength(64)
@@ -1780,7 +1819,7 @@ namespace TtWork.ProjectName.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Activity_UserPrizes");
+                    b.ToTable("Activity_UserPrizes", (string)null);
                 });
 
             modelBuilder.Entity("TTWork.Abp.AppManagement.Domain.App", b =>
@@ -1833,7 +1872,7 @@ namespace TtWork.ProjectName.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("App_Apps");
+                    b.ToTable("App_Apps", (string)null);
                 });
 
             modelBuilder.Entity("TTWork.Abp.AuditManagement.Domain.AuditFlow", b =>
@@ -1886,7 +1925,7 @@ namespace TtWork.ProjectName.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Audit_AuditFlows");
+                    b.ToTable("Audit_AuditFlows", (string)null);
                 });
 
             modelBuilder.Entity("TTWork.Abp.AuditManagement.Domain.AuditNode", b =>
@@ -1927,15 +1966,16 @@ namespace TtWork.ProjectName.Migrations
 
                     b.HasIndex("AuditFlowId");
 
-                    b.ToTable("Audit_AuditNodes");
+                    b.ToTable("Audit_AuditNodes", (string)null);
                 });
 
             modelBuilder.Entity("TTWork.Abp.AuditManagement.Domain.AuditUserLog", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
                     b.Property<Guid>("AuditFlowId")
                         .HasColumnType("uniqueidentifier");
@@ -1977,15 +2017,16 @@ namespace TtWork.ProjectName.Migrations
 
                     b.HasIndex("CreatorUserId");
 
-                    b.ToTable("Audit_AuditUserLogs");
+                    b.ToTable("Audit_AuditUserLogs", (string)null);
                 });
 
             modelBuilder.Entity("TTWork.Abp.Core.Authorization.Roles.Role", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -2058,8 +2099,9 @@ namespace TtWork.ProjectName.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
@@ -2265,8 +2307,9 @@ namespace TtWork.ProjectName.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("ConnectionString")
                         .HasMaxLength(1024)
@@ -2376,7 +2419,7 @@ namespace TtWork.ProjectName.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Feature_AbpFeatures");
+                    b.ToTable("Feature_AbpFeatures", (string)null);
                 });
 
             modelBuilder.Entity("TTWork.Abp.WorkFlowCore.Models.PersistedEvent", b =>
@@ -2410,7 +2453,7 @@ namespace TtWork.ProjectName.Migrations
 
                     b.HasIndex("EventName", "EventKey");
 
-                    b.ToTable("T_WorkFlow_Events");
+                    b.ToTable("T_WorkFlow_Events", (string)null);
                 });
 
             modelBuilder.Entity("TTWork.Abp.WorkFlowCore.Models.PersistedExecutionError", b =>
@@ -2433,7 +2476,7 @@ namespace TtWork.ProjectName.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("T_WorkFlow_ExecutionErrors");
+                    b.ToTable("T_WorkFlow_ExecutionErrors", (string)null);
                 });
 
             modelBuilder.Entity("TTWork.Abp.WorkFlowCore.Models.PersistedExecutionPointer", b =>
@@ -2506,7 +2549,7 @@ namespace TtWork.ProjectName.Migrations
 
                     b.HasIndex("WorkflowId");
 
-                    b.ToTable("T_WorkFlow_ExecutionPointers");
+                    b.ToTable("T_WorkFlow_ExecutionPointers", (string)null);
                 });
 
             modelBuilder.Entity("TTWork.Abp.WorkFlowCore.Models.PersistedExtensionAttribute", b =>
@@ -2529,7 +2572,7 @@ namespace TtWork.ProjectName.Migrations
 
                     b.HasIndex("ExecutionPointerId");
 
-                    b.ToTable("T_WorkFlow_ExtensionAttributes");
+                    b.ToTable("T_WorkFlow_ExtensionAttributes", (string)null);
                 });
 
             modelBuilder.Entity("TTWork.Abp.WorkFlowCore.Models.PersistedSubscription", b =>
@@ -2578,7 +2621,7 @@ namespace TtWork.ProjectName.Migrations
 
                     b.HasIndex("EventName");
 
-                    b.ToTable("T_WorkFlow_Subscriptions");
+                    b.ToTable("T_WorkFlow_Subscriptions", (string)null);
                 });
 
             modelBuilder.Entity("TTWork.Abp.WorkFlowCore.Models.PersistedWorkflow", b =>
@@ -2628,7 +2671,7 @@ namespace TtWork.ProjectName.Migrations
 
                     b.HasIndex("NextExecution");
 
-                    b.ToTable("T_WorkFlow_Workflows");
+                    b.ToTable("T_WorkFlow_Workflows", (string)null);
                 });
 
             modelBuilder.Entity("TTWork.Abp.WorkFlowCore.Models.PersistedWorkflowDefinition", b =>
@@ -2647,15 +2690,16 @@ namespace TtWork.ProjectName.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("T_WorkFlow_WorkflowDefinitions");
+                    b.ToTable("T_WorkFlow_WorkflowDefinitions", (string)null);
                 });
 
             modelBuilder.Entity("TtWork.ProjectName.Entities.Cms.CmsCategory", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("ImageUrl")
                         .HasMaxLength(256)
@@ -2677,8 +2721,9 @@ namespace TtWork.ProjectName.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
@@ -2743,8 +2788,9 @@ namespace TtWork.ProjectName.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int>("CmsContentId")
                         .HasColumnType("int");
@@ -2771,8 +2817,9 @@ namespace TtWork.ProjectName.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Content")
                         .HasMaxLength(512)
@@ -2842,8 +2889,9 @@ namespace TtWork.ProjectName.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
                     b.Property<int?>("Audit")
                         .HasColumnType("int");
@@ -2895,8 +2943,9 @@ namespace TtWork.ProjectName.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("datetime2");
@@ -2928,8 +2977,9 @@ namespace TtWork.ProjectName.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
                     b.Property<string>("BillNo")
                         .HasMaxLength(48)
@@ -3017,8 +3067,9 @@ namespace TtWork.ProjectName.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
                     b.Property<int?>("Audit")
                         .HasColumnType("int");
@@ -3070,8 +3121,9 @@ namespace TtWork.ProjectName.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("appid")
                         .HasMaxLength(40)
@@ -3180,8 +3232,9 @@ namespace TtWork.ProjectName.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int>("BgHeight")
                         .HasColumnType("int");
@@ -3304,8 +3357,9 @@ namespace TtWork.ProjectName.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("AppName")
                         .HasMaxLength(64)
@@ -3373,8 +3427,9 @@ namespace TtWork.ProjectName.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("datetime2");
@@ -3421,17 +3476,6 @@ namespace TtWork.ProjectName.Migrations
                     b.HasDiscriminator().HasValue("EditionFeatureSetting");
                 });
 
-            modelBuilder.Entity("Abp.MultiTenancy.TenantFeatureSetting", b =>
-                {
-                    b.HasBaseType("Abp.Application.Features.FeatureSetting");
-
-                    b.HasIndex("TenantId", "Name");
-
-                    b.ToTable("AbpFeatures");
-
-                    b.HasDiscriminator().HasValue("TenantFeatureSetting");
-                });
-
             modelBuilder.Entity("Abp.Authorization.Roles.RolePermissionSetting", b =>
                 {
                     b.HasBaseType("Abp.Authorization.PermissionSetting");
@@ -3458,6 +3502,17 @@ namespace TtWork.ProjectName.Migrations
                     b.ToTable("AbpPermissions");
 
                     b.HasDiscriminator().HasValue("UserPermissionSetting");
+                });
+
+            modelBuilder.Entity("Abp.MultiTenancy.TenantFeatureSetting", b =>
+                {
+                    b.HasBaseType("Abp.Application.Features.FeatureSetting");
+
+                    b.HasIndex("TenantId", "Name");
+
+                    b.ToTable("AbpFeatures");
+
+                    b.HasDiscriminator().HasValue("TenantFeatureSetting");
                 });
 
             modelBuilder.Entity("TtWork.ProjectName.Entities.Organizations.ProjectNameOrganizationUnit", b =>
@@ -3643,9 +3698,7 @@ namespace TtWork.ProjectName.Migrations
                     b.OwnsOne("TTWork.Abp.Activity.Domains.AddressDetail", "Address", b1 =>
                         {
                             b1.Property<long>("UserPrizeId")
-                                .ValueGeneratedOnAdd()
-                                .HasColumnType("bigint")
-                                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                                .HasColumnType("bigint");
 
                             b1.Property<string>("CityName")
                                 .HasMaxLength(64)
@@ -3886,9 +3939,7 @@ namespace TtWork.ProjectName.Migrations
                     b.OwnsOne("TtWork.ProjectName.Entities.Organizations.OrganizationUnitDetail", "Detail", b1 =>
                         {
                             b1.Property<long>("OrganizationApplyId")
-                                .ValueGeneratedOnAdd()
-                                .HasColumnType("bigint")
-                                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                                .HasColumnType("bigint");
 
                             b1.Property<string>("Address")
                                 .HasMaxLength(128)
@@ -4100,7 +4151,7 @@ namespace TtWork.ProjectName.Migrations
 
                             b1.HasKey("ProjectNameOrganizationUnitId");
 
-                            b1.ToTable("T_OrganizationUnitDetails");
+                            b1.ToTable("T_OrganizationUnitDetails", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("ProjectNameOrganizationUnitId");
