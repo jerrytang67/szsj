@@ -10,6 +10,7 @@ import { Vue, Component, Ref, Watch, Prop } from "vue-property-decorator";
 @Component
 export default class AuditTag extends Vue {
    @Prop({ required: true }) item!: any;
+   
    get tagType() {
       if (this.item.isAudited) {
          return "success";
@@ -21,6 +22,7 @@ export default class AuditTag extends Vue {
          return "";
       }
    }
+
    get tagText() {
       if (this.item.isAudited) {
          return "已审核";

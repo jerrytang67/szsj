@@ -19,7 +19,6 @@ using Abp.Reflection.Extensions;
 using AwsomeApi.DingTalk;
 using AwsomeApi.WeixinWork;
 using Castle.Services.Logging.SerilogIntegration;
-using Elastic.Apm.NetCoreAll;
 using Microsoft.AspNetCore.Http;
 using TtWork.ProjectName.Authentication.JwtBearer;
 using TtWork.ProjectName.Configuration;
@@ -166,7 +165,7 @@ namespace TtWork.ProjectName.Web.Host.Startup
         {
             app.UseMiddleware<RealIpMiddleware>();
 
-            app.UseAllElasticApm(_appConfiguration);
+            // app.UseAllElasticApm(_appConfiguration);
 
             app.UseAbp(options => { options.UseAbpRequestLocalization = true; }); // Initializes ABP framework.
 

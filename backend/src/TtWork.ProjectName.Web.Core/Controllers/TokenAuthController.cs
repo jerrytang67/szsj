@@ -122,9 +122,9 @@ namespace TtWork.ProjectName.Controllers
             return new AuthenticateResultModel
             {
                 AccessToken = accessToken,
-                ExpireInSeconds = (int) _configuration.AccessTokenExpiration.TotalSeconds,
+                ExpireInSeconds = (int)_configuration.AccessTokenExpiration.TotalSeconds,
                 RefreshToken = refreshToken,
-                RefreshTokenExpireInSeconds = (int) _configuration.RefreshTokenExpiration.TotalSeconds,
+                RefreshTokenExpireInSeconds = (int)_configuration.RefreshTokenExpiration.TotalSeconds,
                 EncryptedAccessToken = GetEncryptedAccessToken(accessToken),
                 TwoFactorRememberClientToken = twoFactorRememberClientToken,
                 UserId = loginResult.User.Id,
@@ -174,10 +174,10 @@ namespace TtWork.ProjectName.Controllers
                     {
                         AccessToken = accessToken,
                         EncryptedAccessToken = GetEncryptedAccessToken(accessToken),
-                        ExpireInSeconds = (int) _configuration.AccessTokenExpiration.TotalSeconds,
+                        ExpireInSeconds = (int)_configuration.AccessTokenExpiration.TotalSeconds,
                         ReturnUrl = returnUrl,
                         RefreshToken = refreshToken,
-                        RefreshTokenExpireInSeconds = (int) _configuration.RefreshTokenExpiration.TotalSeconds
+                        RefreshTokenExpireInSeconds = (int)_configuration.RefreshTokenExpiration.TotalSeconds
                     };
                 }
                 case AbpLoginResultType.UnknownExternalLogin:
@@ -185,7 +185,7 @@ namespace TtWork.ProjectName.Controllers
                     var newUser = await RegisterExternalUserAsync(externalUser);
                     if (!newUser.IsActive)
                     {
-                        return new ExternalAuthenticateResultModel {WaitingForActivation = true};
+                        return new ExternalAuthenticateResultModel { WaitingForActivation = true };
                     }
 
                     //Try to login again with newly registered user!
@@ -206,9 +206,9 @@ namespace TtWork.ProjectName.Controllers
                     {
                         AccessToken = accessToken,
                         EncryptedAccessToken = GetEncryptedAccessToken(accessToken),
-                        ExpireInSeconds = (int) _configuration.AccessTokenExpiration.TotalSeconds,
+                        ExpireInSeconds = (int)_configuration.AccessTokenExpiration.TotalSeconds,
                         RefreshToken = refreshToken,
-                        RefreshTokenExpireInSeconds = (int) _configuration.RefreshTokenExpiration.TotalSeconds
+                        RefreshTokenExpireInSeconds = (int)_configuration.RefreshTokenExpiration.TotalSeconds
                     };
                 }
                 default:
@@ -221,7 +221,6 @@ namespace TtWork.ProjectName.Controllers
                 }
             }
         }
-
 
         [HttpPost]
         public async Task<object> GetWeixinMiniPhone([FromBody] WeChatMiniProgramAuthenticateModel model)
@@ -239,7 +238,6 @@ namespace TtWork.ProjectName.Controllers
             }
         }
 
-
         /// <summary>
         /// 公众号微信授权登录
         /// </summary>
@@ -249,9 +247,9 @@ namespace TtWork.ProjectName.Controllers
         [HttpGet]
         public async Task<ExternalAuthenticateResultModel> WeixinAuthenticate(string code)
         {
-            var model = new ExternalAuthenticateModel {AuthProvider = TTWorkConsts.LoginProvider.WeChat, ProviderAccessCode = code};
+            var model = new ExternalAuthenticateModel { AuthProvider = TTWorkConsts.LoginProvider.WeChat, ProviderAccessCode = code };
             var (externalUser, loginResult) = await GetExternalAuthUserInfo(model);
-            return await ExternalAuthenticateResultModel(loginResult, externalUser, model, (int) ClientTypeEnum.Weixin);
+            return await ExternalAuthenticateResultModel(loginResult, externalUser, model, (int)ClientTypeEnum.Weixin);
         }
 
         /// <summary>
@@ -263,10 +261,10 @@ namespace TtWork.ProjectName.Controllers
         [HttpPost]
         public async Task<ExternalAuthenticateResultModel> WeixinMiniAuthenticate([FromBody] WeChatMiniProgramAuthenticateModel loginModel)
         {
-            var model = new ExternalAuthenticateModel {AuthProvider = TTWorkConsts.LoginProvider.WeChatMiniProgram, ProviderAccessCode = JsonConvert.SerializeObject(loginModel)};
+            var model = new ExternalAuthenticateModel { AuthProvider = TTWorkConsts.LoginProvider.WeChatMiniProgram, ProviderAccessCode = JsonConvert.SerializeObject(loginModel) };
             var (externalUser, loginResult) = await GetExternalAuthUserInfo(model);
             model.ProviderKey = externalUser.WeChatUserLogin.openid;
-            return await ExternalAuthenticateResultModel(loginResult, externalUser, model, (int) ClientTypeEnum.WeixinMini);
+            return await ExternalAuthenticateResultModel(loginResult, externalUser, model, (int)ClientTypeEnum.WeixinMini);
         }
 
         [HttpPost]
@@ -296,15 +294,15 @@ namespace TtWork.ProjectName.Controllers
                         phoneNumber = phoneResult.phoneNumber
                     },
                     Provider = TTWorkConsts.LoginProvider.WeChatMiniPhone,
-                    FromClient = (int) ClientTypeEnum.WeixinMini,
+                    FromClient = (int)ClientTypeEnum.WeixinMini,
                     PhoneNumber = phoneResult.phoneNumber
                 };
 
-                var model = new ExternalAuthenticateModel {AuthProvider = TTWorkConsts.LoginProvider.WeChatMiniPhone, ProviderKey = phoneResult.phoneNumber};
+                var model = new ExternalAuthenticateModel { AuthProvider = TTWorkConsts.LoginProvider.WeChatMiniPhone, ProviderKey = phoneResult.phoneNumber };
 
                 var (externalUser, loginResult) = await ExternalLogin(model, authUserInfo);
 
-                return await ExternalAuthenticateResultModel(loginResult, externalUser, model, (int) ClientTypeEnum.WeixinMini);
+                return await ExternalAuthenticateResultModel(loginResult, externalUser, model, (int)ClientTypeEnum.WeixinMini);
             }
             catch (Exception e)
             {
@@ -375,7 +373,7 @@ namespace TtWork.ProjectName.Controllers
             }
 
             //如果登录成功后,要更新的User表数据
-            if (loginResult.Result == AbpLoginResultType.Success && externalUser.FromClient == (int) ClientTypeEnum.Weixin)
+            if (loginResult.Result == AbpLoginResultType.Success && externalUser.FromClient == (int)ClientTypeEnum.Weixin)
             {
             }
 
@@ -397,7 +395,7 @@ namespace TtWork.ProjectName.Controllers
             {
                 AccessToken = accessToken,
                 EncryptedAccessToken = GetEncrpyedAccessToken(accessToken),
-                ExpireInSeconds = (int) _configuration.Expiration.TotalSeconds,
+                ExpireInSeconds = (int)_configuration.Expiration.TotalSeconds,
                 RefreshToken = refreshToken,
 
                 User = externalUser,
@@ -420,7 +418,7 @@ namespace TtWork.ProjectName.Controllers
                     var newUser = await RegisterExternalUserAsync(externalUser);
                     if (!newUser.IsActive)
                     {
-                        return new ExternalAuthenticateResultModel {WaitingForActivation = true};
+                        return new ExternalAuthenticateResultModel { WaitingForActivation = true };
                     }
 
                     // Try to login again with newly registered user!
@@ -453,7 +451,6 @@ namespace TtWork.ProjectName.Controllers
         {
             var dbUser = await _userRepository.GetAll().Include(x => x.Logins).FirstOrDefaultAsync(x => x.Name == externalUser.Name || x.EmailAddress == externalUser.EmailAddress);
 
-
             //如果数据库中不存在相同名称的用户,自动重新注册
             if (dbUser == null)
             {
@@ -471,19 +468,20 @@ namespace TtWork.ProjectName.Controllers
 
                 user.Logins = new List<UserLogin>
                 {
-                    new() {LoginProvider = externalUser.Provider, ProviderKey = externalUser.ProviderKey, TenantId = user.TenantId},
+                    new() { LoginProvider = externalUser.Provider, ProviderKey = externalUser.ProviderKey, TenantId = user.TenantId },
                 };
                 if (externalUser.WeChatUserLogin?.unionid != null)
                 {
-                    user.Logins.Add(
-                        new UserLogin {LoginProvider = TTWorkConsts.LoginProvider.WeChatUnionId, ProviderKey = externalUser.WeChatUserLogin.unionid, TenantId = user.TenantId}
-                    );
+                    if (!externalUser.WeChatUserLogin.unionid.IsNullOrEmptyOrWhiteSpace())
+                        user.Logins.Add(
+                            new UserLogin { LoginProvider = TTWorkConsts.LoginProvider.WeChatUnionId, ProviderKey = externalUser.WeChatUserLogin.unionid, TenantId = user.TenantId }
+                        );
                 }
 
                 if (externalUser.WeChatUserLogin?.openid != null)
                 {
                     user.Logins.Add(
-                        new UserLogin {LoginProvider = TTWorkConsts.LoginProvider.WeChatMiniProgram, ProviderKey = externalUser.WeChatUserLogin.openid, TenantId = user.TenantId}
+                        new UserLogin { LoginProvider = TTWorkConsts.LoginProvider.WeChatMiniProgram, ProviderKey = externalUser.WeChatUserLogin.openid, TenantId = user.TenantId }
                     );
                 }
 
@@ -496,22 +494,20 @@ namespace TtWork.ProjectName.Controllers
                 if (externalUser.WeChatUserLogin?.phoneNumber != null && externalUser.Provider == TTWorkConsts.LoginProvider.WeChatMiniPhone)
                 {
                     dbUser.Logins.Add(
-                        new UserLogin {LoginProvider = TTWorkConsts.LoginProvider.WeChatMiniPhone, ProviderKey = externalUser.WeChatUserLogin.phoneNumber, TenantId = dbUser.TenantId}
+                        new UserLogin { LoginProvider = TTWorkConsts.LoginProvider.WeChatMiniPhone, ProviderKey = externalUser.WeChatUserLogin.phoneNumber, TenantId = dbUser.TenantId }
                     );
                 }
 
                 if (externalUser.WeChatUserLogin?.unionid != null && externalUser.Provider == TTWorkConsts.LoginProvider.WeChatMiniPhone)
                 {
-                    dbUser.Logins.Add(
-                        new UserLogin {LoginProvider = TTWorkConsts.LoginProvider.WeChatUnionId, ProviderKey = externalUser.WeChatUserLogin.unionid, TenantId = dbUser.TenantId}
-                    );
+                    if (!externalUser.WeChatUserLogin.unionid.IsNullOrEmptyOrWhiteSpace())
+                        dbUser.Logins.Add(
+                            new UserLogin { LoginProvider = TTWorkConsts.LoginProvider.WeChatUnionId, ProviderKey = externalUser.WeChatUserLogin.unionid, TenantId = dbUser.TenantId }
+                        );
                 }
-
                 await CurrentUnitOfWork.SaveChangesAsync();
-
                 return dbUser;
             }
-
             throw new UserFriendlyException("相同用户名已存在");
         }
 
