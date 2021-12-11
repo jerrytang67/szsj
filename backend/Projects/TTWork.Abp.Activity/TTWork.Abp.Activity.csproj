@@ -19,7 +19,6 @@
         <ProjectReference Include="..\..\Modules\TTWork.Abp.AuditManagement\TTWork.Abp.AuditManagement.csproj" />
         <ProjectReference Include="..\..\Modules\TTWork.Abp.Core\TTWork.Abp.Core.csproj" />
         <ProjectReference Include="..\..\Modules\TTWork.Abp.WorkFlowCore\TTWork.Abp.WorkFlowCore.csproj" />
-        <ProjectReference Include="..\TTWork.Abp.LaborUnion\TTWork.Abp.LaborUnion.csproj" />
     </ItemGroup>
 
     <ItemGroup>

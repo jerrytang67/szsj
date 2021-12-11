@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Abp.Application.Services.Dto;
+using FluentValidation;
 
 namespace TTWork.Abp.Activity.Domains
 {
@@ -27,6 +28,8 @@ namespace TTWork.Abp.Activity.Domains
 
         public int PrizeTotal { get; set; }
 
+        public double? DefaultWinningChance { get; set; } = 0.2;
+
         public string HtmlContext { get; set; }
 
         public Dictionary<string, string> Settings { get; set; } = new();
@@ -38,5 +41,15 @@ namespace TTWork.Abp.Activity.Domains
         public DateTime? PrizeExpiredTime { get; set; } = DateTime.Today.AddDays(1).AddMonths(1);
 
         public List<string> CheckCodes { get; set; }
+    }
+
+    public class LuckDrawCreateOrUpdateDtoValidater : AbstractValidator<LuckDrawCreateOrUpdateDto>
+    {
+        public LuckDrawCreateOrUpdateDtoValidater()
+        {
+            RuleFor(x => x.DefaultWinningChance)
+                .NotNull().WithMessage("中奖机率 必填")
+                .GreaterThan(0).WithMessage("中奖机率 必须大于0");
+        }
     }
 }

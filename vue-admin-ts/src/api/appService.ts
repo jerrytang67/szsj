@@ -681,6 +681,36 @@ export class ClientService {
   /**
    *
    */
+  static getTradeSummaryList(options: IRequestOptions = {}): Promise<string> {
+    return new Promise((resolve, reject) => {
+      let url = '/api/services/Activity/Client/GetTradeSummaryList';
+
+      const configs: IRequestConfig = getConfigs('get', 'application/json', url, options);
+
+      let data = null;
+
+      configs.data = data;
+      axios(configs, resolve, reject);
+    });
+  }
+  /**
+   *
+   */
+  static getDetectionList(options: IRequestOptions = {}): Promise<string> {
+    return new Promise((resolve, reject) => {
+      let url = '/api/services/Activity/Client/GetDetectionList';
+
+      const configs: IRequestConfig = getConfigs('get', 'application/json', url, options);
+
+      let data = null;
+
+      configs.data = data;
+      axios(configs, resolve, reject);
+    });
+  }
+  /**
+   *
+   */
   static init(options: IRequestOptions = {}): Promise<any> {
     return new Promise((resolve, reject) => {
       let url = '/api/services/app/Client/Init';
@@ -1383,6 +1413,8 @@ export class LuckDrawService {
     params: {
       /**  */
       id?: number;
+      /**  */
+      shareFrom?: string;
     } = {} as any,
     options: IRequestOptions = {}
   ): Promise<UserPrizeDto> {
@@ -1390,7 +1422,7 @@ export class LuckDrawService {
       let url = '/api/services/Activity/LuckDraw/LuckDraw';
 
       const configs: IRequestConfig = getConfigs('get', 'application/json', url, options);
-      configs.params = { id: params['id'] };
+      configs.params = { Id: params['id'], ShareFrom: params['shareFrom'] };
       let data = null;
 
       configs.data = data;
@@ -6740,6 +6772,9 @@ export interface LuckDrawCreateOrUpdateDto {
 
   /**  */
   prizeTotal?: number;
+
+  /**  */
+  defaultWinningChance?: number;
 
   /**  */
   htmlContext?: string;

@@ -1356,6 +1356,9 @@ namespace TtWork.ProjectName.Migrations
                     b.Property<DateTime>("DatetimeStart")
                         .HasColumnType("datetime2");
 
+                    b.Property<double?>("DefaultWinningChance")
+                        .HasColumnType("float");
+
                     b.Property<long?>("DeleterUserId")
                         .HasColumnType("bigint");
 

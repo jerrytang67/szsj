@@ -121,7 +121,7 @@ export default class LuckDraw extends BaseView {
    item: any = { id: 0, settings: {} };
 
    blocks = [{ padding: '10px', background: '#D64737' }]
-   prizes = [
+   prizes22 = [
       { id: 1, title: '一等奖', background: '#f9e3bb', fonts: [{ text: '一等奖', top: '25%' }] },
       { id: 2, title: '二等奖', background: '#f8d384', fonts: [{ text: '二等奖', top: '25%' }] },
       { id: 3, title: '三等奖', background: '#f9e3bb', fonts: [{ text: '三等奖', top: '25%' }] },
@@ -152,6 +152,32 @@ export default class LuckDraw extends BaseView {
 
    shareFrom = 0;
 
+
+   get prizes() {
+      if (this.item.luckDrawPrizes && this.item.luckDrawPrizes.length) {
+         let list = this.item.luckDrawPrizes.map(
+            (x: any, idx: number) => {
+               return {
+                  id: x.id,
+                  title: `${x.name}`,
+                  background: idx % 2 === 0 ? '#f8d384' : '#f9e3bb',
+                  fonts: [{ text: `${x.name}`, top: '25%' }]
+               }
+            });
+
+         if (list.length % 2 === 0) {
+            list.push({ title: '谢谢参与', background: '#f9e3bb', fonts: [{ text: '谢谢参与', top: '25%' }] })
+            list.push({ title: '谢谢参与', background: '#f8d384', fonts: [{ text: '谢谢参与', top: '25%' }] })
+         }
+         else {
+            list.push({ title: '谢谢参与', background: '#f9e3bb', fonts: [{ text: '谢谢参与', top: '25%' }] })
+
+         }
+         return list;
+      }
+      else return []
+   }
+
    startCallBack() {
       if (!this.running) {
          this.running = true;
@@ -163,7 +189,7 @@ export default class LuckDraw extends BaseView {
             this.item.luckTimes--;
             if (res) {
                this.prizeRes = res;
-               index = this.prizes.findIndex(x => x.id == res.prizeId)
+               index = this.prizes.findIndex((x: any) => x.id == res.prizeId)
             }
             else {
                index = this.prizes.length - 1

@@ -90,8 +90,8 @@ namespace TTWork.Abp.Activity.Applications
             var 中奖几率Cache = await _redisClient.Database.StringGetAsync(keyy);
             if (!中奖几率Cache.HasValue)
             {
-                await _redisClient.Database.StringSetAsync(keyy, 0.3);
-                中奖几率Cache = 0.3;
+                中奖几率Cache = activity.DefaultWinningChance ?? 0.1;
+                await _redisClient.Database.StringSetAsync(keyy, 中奖几率Cache);
             }
 
             var 中奖几率 = 0.3;
@@ -133,11 +133,11 @@ namespace TTWork.Abp.Activity.Applications
                 #region 分享加次数
 
                 if (shareFrom > 0 && !await _userLuckTimeRepository.GetAll().AsNoTracking()
-                    .AnyAsync(x => x.UserId == shareFrom
-                                   && x.LuckDrawId == activity.Id
-                                   && x.ShareFrom.HasValue
-                                   && x.CreationTime >= DateTime.Today
-                    ))
+                        .AnyAsync(x => x.UserId == shareFrom
+                                       && x.LuckDrawId == activity.Id
+                                       && x.ShareFrom.HasValue
+                                       && x.CreationTime >= DateTime.Today
+                        ))
                 {
                     await _userLuckTimeRepository.InsertAsync(new UserLuckTime()
                     {
@@ -247,7 +247,7 @@ namespace TTWork.Abp.Activity.Applications
                                                                                          && x.LuckDrawId == result.Id
                                                                                          && x.ShareFrom == null
                                                                                          && x.CreationTime > DateTime.Today)
-                )
+                   )
                 {
                     await _userLuckTimeRepository.InsertAsync(new UserLuckTime
                     {

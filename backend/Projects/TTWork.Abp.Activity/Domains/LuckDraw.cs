@@ -16,6 +16,8 @@ namespace TTWork.Abp.Activity.Domains
         public EnumClass.PickupWay PickupWay { get; set; } = EnumClass.PickupWay.Qr;
         public int? Price { get; set; }
 
+        public double? DefaultWinningChance { get; set; } = 0.2;
+
         public int MaxDrawTimes { get; set; } = -1; //不限制
         public int? MaxWinTimes { get; set; }
         public int PrizeTotal { get; set; }

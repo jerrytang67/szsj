@@ -166,7 +166,7 @@ namespace TtWork.ProjectName.Web.Host.Startup
         {
             app.UseMiddleware<RealIpMiddleware>();
 
-            app.UseAllElasticApm(_appConfiguration);
+            // app.UseAllElasticApm(_appConfiguration);
 
             app.UseAbp(options => { options.UseAbpRequestLocalization = true; }); // Initializes ABP framework.
 
