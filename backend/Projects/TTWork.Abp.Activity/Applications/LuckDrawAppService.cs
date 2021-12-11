@@ -11,6 +11,7 @@ using Abp.Linq.Extensions;
 using Abp.UI;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using StackExchange.Redis;
 using TT.Extensions;
@@ -32,18 +33,21 @@ namespace TTWork.Abp.Activity.Applications
         private readonly IRepository<UserPrize, long> _userPrizeRepository;
         private readonly IRepository<UserLuckTime, long> _userLuckTimeRepository;
         private readonly IRedisClient _redisClient;
+        private readonly IConfiguration _appConfiguration;
 
         public LuckDrawAppService(
             IRepository<LuckDraw, long> repository,
             IRepository<UserPrize, long> userPrizeRepository,
             IRepository<UserLuckTime, long> userLuckTimeRepository,
             IRedisClient redisClient,
-            IocManager iocManager) :
+            IocManager iocManager,
+            IConfiguration appConfiguration) :
             base(repository, iocManager)
         {
             _userPrizeRepository = userPrizeRepository;
             _userLuckTimeRepository = userLuckTimeRepository;
             _redisClient = redisClient;
+            _appConfiguration = appConfiguration;
 
             EnableGetEdit = true;
             base.GetAllPermissionName = ActivityPermissions.Default;
@@ -56,9 +60,10 @@ namespace TTWork.Abp.Activity.Applications
         [AbpAuthorize(AppPermissions.Pages.Default)]
         public async Task<UserPrizeDto> LuckDraw(LuckDrawRequestDto input)
         {
+            var appName = _appConfiguration["ApplicationName"] ?? "UnKnowApplicationName";
+
             var activity = await GetEntityByIdAsync(input.Id);
-
-
+            
             long shareFrom;
             long.TryParse(input.ShareFrom, out shareFrom);
             if (shareFrom > 0 && AbpSession.UserId!.Value == shareFrom)
@@ -86,7 +91,7 @@ namespace TTWork.Abp.Activity.Applications
 
             #region 设置的中奖机率
 
-            var keyy = $"WJZGH:LuckDraw:{input.Id}:中奖几率";
+            var keyy = $"{appName}:LuckDraw:{input.Id}:中奖几率";
             var 中奖几率Cache = await _redisClient.Database.StringGetAsync(keyy);
             if (!中奖几率Cache.HasValue)
             {
@@ -172,7 +177,7 @@ namespace TTWork.Abp.Activity.Applications
             if (随机数 > activity.PrizeTotal)
                 return null;
 
-            var PRIZEKEY = $"LuckDraw:{activity.Id}:Prizes";
+            var PRIZEKEY = $"{appName}:LuckDraw:{activity.Id}:Prizes";
             var prizeCache = await _redisClient.Database.ListRightPopAsync(PRIZEKEY);
             if (!prizeCache.HasValue)
             {
